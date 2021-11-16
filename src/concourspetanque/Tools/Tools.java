@@ -8,6 +8,11 @@ import concourspetanque.Player;
 import concourspetanque.Team;
 
 public class Tools {
+<<<<<<< HEAD
+    public static int random_int(int Min, int Max) {
+        int result = (int) (Math.random()*(Max-Min))+Min;
+        return result;
+=======
     
     public static List<Team> GenerateTeams(List<Player> players) throws Exception{
         List<Team> teams = new ArrayList<Team>();
@@ -33,6 +38,7 @@ public class Tools {
             }
            return teams;
         }        
+>>>>>>> dac707dc4fbd85a64151fbb0e589cc80c7b207ef
     }
     public static int GenerateNumberBetween(int low, int high){
         Random r = new Random();
