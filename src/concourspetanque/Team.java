@@ -12,5 +12,6 @@ import java.util.List;
  * @author nicpa
  */
 public class Team {//simples doublettes triplettes
-    List<Player> players = new ArrayList<Player>();
+    private List<Player> players = new ArrayList<Player>();
+    private int score;
 }
