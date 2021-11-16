@@ -13,8 +13,17 @@ import java.util.List;
  */
 public class Team {//simples doublettes triplettes
     private List<Player> players = new ArrayList<Player>();
-    private int score;
+    //private int score;
     public Team(List<Player> players) {
         this.players = players;
+    }
+    public List<Player> getPlayers() {
+        return players;
+    }
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+    public void addPlayer(Player player) {
+        this.players.add(player);
     }
 }
