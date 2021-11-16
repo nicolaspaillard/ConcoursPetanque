@@ -2,14 +2,13 @@ package concourspetanque.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import concourspetanque.Player;
 import concourspetanque.Team;
 
 public class Tools {
-    public static int random_int(int Min, int Max) {
-        int result = (int) (Math.random()*(Max-Min))+Min;
+    public static int GenerateNumberBetween(int min, int max) {
+        int result = (int) (Math.random()*(max-min))+min;
         return result;
     }
     
@@ -19,15 +18,18 @@ public class Tools {
             throw new InvalidNumberException("Erreur : nombre de joueurs insuffisant");
         }else{
             if(players.size()<16){//12 - 15 -> 6 teams
-                List<Player> team = new ArrayList<Player>();
-                for (int i = 0; i < 3; i++) {
-                    Player p = players.get(GenerateNumberBetween(0, players.size()));
-                    if (!players.remove(p)) {
-                        throw new Exception("il existe pas ce joueur wsh.. bon de toute façon normalement ça va jamais throw");
+                for (int i = 0; i < 6; i++) {
+                    List<Player> team = new ArrayList<Player>();
+                    for (int j = 0; j < 2; j++) {
+                        Player p = players.get(GenerateNumberBetween(0, players.size()));
+                        if (!players.remove(p)) {
+                            throw new Exception("il existe pas ce joueur wsh.. bon de toute façon normalement ça va jamais throw");
+                        }
+                        team.add(p);
                     }
-                    team.add(p);
+                    teams.add(new Team(team));
                 }
-                teams.add(new Team(team));
+
             }else if(players.size()<20){//16 - 19 -> 8 teams
 
             }else if(players.size()<24){//20 - 23 -> 10 teams
@@ -38,11 +40,11 @@ public class Tools {
            return teams;
         }        
     }
-    public static int GenerateNumberBetween(int low, int high){
-        Random r = new Random();
-        int result = r.nextInt(high-low) + low;
-        return result;
-    }
+    // public static int GenerateNumberBetween(int low, int high){
+    //     Random r = new Random();
+    //     int result = r.nextInt(high-low) + low;
+    //     return result;
+    // }
 }
 
 // 
