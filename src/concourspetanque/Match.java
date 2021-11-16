@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author nicpa
  */
-public class Team {//simples doublettes triplettes
+public class Match {//simples doublettes triplettes
     private List<Player> players = new ArrayList<Player>();
     private int score;
 }

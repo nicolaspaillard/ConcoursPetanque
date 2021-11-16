@@ -38,15 +38,7 @@ public class Player {
     public void setAge(int age) {
         this.age = age;
     }
-    
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.firstName);
-        hash = 67 * hash + Objects.hashCode(this.lastName);
-        hash = 67 * hash + Objects.hashCode(this.age);
-        return hash;
-    }
+        
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
