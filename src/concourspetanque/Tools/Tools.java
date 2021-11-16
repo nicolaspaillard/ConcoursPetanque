@@ -5,26 +5,24 @@ import java.util.List;
 
 import concourspetanque.Player;
 import concourspetanque.Team;
-import concourspetanque.Tools.InvalidNumberException;
 
 public class Tools {
     
-    public static List<Team> GenerateTeams(List<Player> players){
-        if(players.size()<12){
+    public static List<Team> GenerateTeams(List<Player> players) throws InvalidNumberException{
+        if(players.size()<12 || players.size()>36){
             throw new InvalidNumberException("Erreur : nombre de joueurs insuffisant");
         }else{
+            if(players.size()<16){//6 teams
 
-        }
-        for (int i = 12; i < 36; i+=4) {
-            if(players.size()<i){
+            }else if(players.size()<20){//8 teams
+
+            }else if(players.size()<24){//10 teams
+
+            }else if(players.size()>=24){//12 teams
 
             }
-        }
-        if (players.size() % 2 == 0) {
-            //
-        }
-        return new ArrayList<Team>();
-
+           return new ArrayList<Team>();
+        }        
     }
 }
 
@@ -32,3 +30,6 @@ public class Tools {
 // 16 - 19 -> 8
 // 20 - 23 -> 10
 // 24 - 36 -> 12
+// if (players.size() % 2 == 0) {
+//     //
+// }
