@@ -14,10 +14,10 @@ public class Tools {
         return result;
     }
     public static List<Team> GenerateTeams(List<Player> players) throws Exception{
-        List<Team> teams = new ArrayList<Team>();
         if(players.size()<12 || players.size()>36){
             throw new InvalidNumberException("Erreur : nombre de joueurs insuffisant");
         }else{
+            List<Team> teams = new ArrayList<Team>();
             if(players.size()<16){//12 - 15 -> 6 teams
                 teams = AddPlayers(players, 6);
                 if(players.size()>0) teams = AddRemainingPlayers(players, teams);
