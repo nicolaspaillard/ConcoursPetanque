@@ -15,6 +15,7 @@ public class League {
     public void start() {
         List<Player> players = generatePlayers();
         printPlayers(players);
+        System.out.println(players.size());
         List<Team> teams = generateTeams(players);
         teams.forEach(t -> System.out.println(t));
     }
