@@ -26,4 +26,5 @@ public class Team {//simples doublettes triplettes
     public void addPlayer(Player player) {
         this.players.add(player);
     }
+    
 }

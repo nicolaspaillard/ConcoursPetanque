@@ -15,54 +15,48 @@ public class League {
      * Main method for executing different steps of the program
      */
     public void start() {
-        List<Player> players = playersRegister();
-        printRegisteredPlayers(players);
-
-    }
-
-    // Main steps
-
-    private static List<Player> playersRegister() {
-        // Generate a random number of players
-        int numberOfPlayers = Tools.GenerateNumberBetween(12,36);
-        List<Player> players = new ArrayList<>();
-        for (int i = 0 ; i < numberOfPlayers ; i++) {
-            Player newPlayer = generatePlayer();
-            players.add(newPlayer);
-        }
-        return players;
-    }
-    private static Player generatePlayer(){
-        Player p = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), Tools.GenerateNumberBetween(18, 99));
-        return p;
+        List<Player> players = generatePlayers();
+        printPlayers(players);
+        List<Team> teams = generateTeams(players);
+        teams.forEach(t -> System.out.println(t));
     }
     //#region TOOLS
-    private void printRegisteredPlayers(List<Player> players) {
-        for(Player player : players) {
-            System.out.println(player);
-        }
-    }
     public static int GenerateNumberBetween(int min, int max) {
         Random r = new Random();
         int result = r.nextInt(max-min) + min;
         return result;
     }
-    public static List<Team> GenerateTeams(List<Player> players) throws Exception{
-        if(players.size()<12 || players.size()>36){
-            throw new InvalidNumberException("Erreur : nombre de joueurs insuffisant");
-        }else{
-            List<Team> teams = new ArrayList<Team>();
-            if(players.size()<16){//12 - 15 joueurs -> 6 teams
-                teams = AddPlayers(players, 6);
-            }else if(players.size()<20){//16 - 19 joueurs -> 8 teams
-                teams = AddPlayers(players, 8);
-            }else if(players.size()<24){//20 - 23 joueurs -> 10 teams
-                teams = AddPlayers(players, 10);
-            }else if(players.size()>=24){//24 - 36 joueurs -> 12 teams
-                teams = AddPlayers(players, 12);                
-            }
-           return teams;
-        }        
+    //#endregion
+    //#region PLAYERS
+    private static List<Player> generatePlayers() {
+        // Generate a random number of players
+        int numberOfPlayers = Tools.GenerateNumberBetween(12,36);
+        List<Player> players = new ArrayList<>();
+        for (int i = 0 ; i < numberOfPlayers ; i++) {
+            Player newPlayer = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), Tools.GenerateNumberBetween(18, 99));
+            players.add(newPlayer);
+        }
+        return players;
+    }
+    private void printPlayers(List<Player> players) {
+        for(Player player : players) {
+            System.out.println(player);
+        }
+    }
+    //#endregion
+    //#region TEAMS
+    private static List<Team> generateTeams(List<Player> players){
+        List<Team> teams = new ArrayList<Team>();
+        if(players.size()<16){//12 - 15 joueurs -> 6 teams
+            teams = AddPlayers(players, 6);
+        }else if(players.size()<20){//16 - 19 joueurs -> 8 teams
+            teams = AddPlayers(players, 8);
+        }else if(players.size()<24){//20 - 23 joueurs -> 10 teams
+            teams = AddPlayers(players, 10);
+        }else if(players.size()>=24){//24 - 36 joueurs -> 12 teams
+            teams = AddPlayers(players, 12);                
+        }
+        return teams;       
     }
     public static List<Team> AddPlayers(List<Player> players, int teamsCount){
         List<Team> teams = new ArrayList<Team>();
