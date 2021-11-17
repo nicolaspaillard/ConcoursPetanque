@@ -24,20 +24,13 @@ public class League {
         int numberOfPlayers = Tools.GenerateNumberBetween(12,36);
         List<Player> players = new ArrayList<>();
         for (int i = 0 ; i < numberOfPlayers ; i++) {
-            // Generate random firstName
-            String playerFirstName = NameGenerator.GenerateName();
-            // Generate standard lastName
-            String playerLastName = "Nom" + i;
-            // Generate random age : Players are randomly between 14 & 80 by default
-            int playerAge = Tools.GenerateNumberBetween(14, 80);
-            // Create player and add to the list
-            Player newPlayer = GeneratePlayer();
+            Player newPlayer = generatePlayer();
             players.add(newPlayer);
         }
         return players;
     }
-    public static Player GeneratePlayer(){
-        Player p = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), GenerateNumberBetween(18, 99));
+    private static Player generatePlayer(){
+        Player p = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), Tools.GenerateNumberBetween(18, 99));
         return p;
     }
 
