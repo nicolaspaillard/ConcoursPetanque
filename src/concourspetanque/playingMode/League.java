@@ -7,6 +7,7 @@ import concourspetanque.Tools.NameGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.TimeZone;
 
 public class League {
     /**
@@ -20,14 +21,14 @@ public class League {
         teams.forEach(t -> System.out.println(t));
     }
     //#region TOOLS
-    public static int GenerateNumberBetween(int min, int max) {
+    public int GenerateNumberBetween(int min, int max) {
         Random r = new Random();
         int result = r.nextInt(max-min) + min;
         return result;
     }
     //#endregion
     //#region PLAYERS
-    private static List<Player> generatePlayers() {
+    private List<Player> generatePlayers() {
         // Generate a random number of players
         int numberOfPlayers = GenerateNumberBetween(12,36);
         List<Player> players = new ArrayList<>();
@@ -44,7 +45,7 @@ public class League {
     }
     //#endregion
     //#region TEAMS
-    private static List<Team> generateTeams(List<Player> players){
+    private List<Team> generateTeams(List<Player> players){
         List<Team> teams = new ArrayList<Team>();
         if(players.size()<16){//12 - 15 joueurs -> 6 teams
             teams = AddPlayers(players, 6);
@@ -57,7 +58,7 @@ public class League {
         }
         return teams;       
     }
-    public static List<Team> AddPlayers(List<Player> players, int teamsCount){
+    public List<Team> AddPlayers(List<Player> players, int teamsCount){
         List<Team> teams = new ArrayList<Team>();
         for (int i = 0; i < teamsCount; i++) {//ajoute 2 joueurs a chaque équipe une par une 
             List<Player> team = new ArrayList<Player>();
@@ -71,11 +72,11 @@ public class League {
         if(players.size()>0) teams = AddRemainingPlayers(players, teams);//si il reste des joueurs, les ajoute a des teams
         return teams;
     }
-    public static List<Team> AddRemainingPlayers(List<Player> remainingPlayers, List<Team> teams){
-
-        int teamNumber = GenerateNumberBetween(0, teams.size());//récupère une 1ere team au hasard
+    public List<Team> AddRemainingPlayers(List<Player> remainingPlayers, List<Team> teams){
+        int teamNumber = GenerateNumberBetween(0, teams.size());//récupère une 1ere team au hasard 
         List<Integer> prevTeamsNumber = new ArrayList<Integer>();//voir plus bas
-        for (int i = 0; i <= remainingPlayers.size(); i++) {//récupère les joueurs un par un et les ajoute à une team
+        int playersCount = remainingPlayers.size();
+        for (int i = 0; i < playersCount; i++) {
             while (prevTeamsNumber.contains(teamNumber)) {//si l'équipe a deja reçu un joueur supplémentaire
                 teamNumber = GenerateNumberBetween(0, teams.size());//récupère une team au hasard
             }        
