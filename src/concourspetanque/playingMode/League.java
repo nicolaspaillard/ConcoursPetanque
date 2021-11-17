@@ -2,9 +2,7 @@ package concourspetanque.playingMode;
 
 import concourspetanque.Player;
 import concourspetanque.Team;
-import concourspetanque.Tools.InvalidNumberException;
 import concourspetanque.Tools.NameGenerator;
-import concourspetanque.Tools.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +28,10 @@ public class League {
     //#region PLAYERS
     private static List<Player> generatePlayers() {
         // Generate a random number of players
-        int numberOfPlayers = Tools.GenerateNumberBetween(12,36);
+        int numberOfPlayers = GenerateNumberBetween(12,36);
         List<Player> players = new ArrayList<>();
         for (int i = 0 ; i < numberOfPlayers ; i++) {
-            Player newPlayer = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), Tools.GenerateNumberBetween(18, 99));
+            Player newPlayer = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), GenerateNumberBetween(18, 99));
             players.add(newPlayer);
         }
         return players;
