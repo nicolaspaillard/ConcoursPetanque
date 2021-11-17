@@ -21,7 +21,7 @@ public class League {
 
     private static List<Player> playersRegister() {
         // Generate a random number of players
-        int numberOfPlayers = Tools.random_int(12,36);
+        int numberOfPlayers = Tools.GenerateNumberBetween(12,36);
         List<Player> players = new ArrayList<>();
         for (int i = 0 ; i < numberOfPlayers ; i++) {
             // Generate random firstName
@@ -29,7 +29,7 @@ public class League {
             // Generate standard lastName
             String playerLastName = "Nom" + i;
             // Generate random age : Players are randomly between 14 & 80 by default
-            int playerAge = Tools.random_int(14, 80);
+            int playerAge = Tools.GenerateNumberBetween(14, 80);
             // Create player and add to the list
             Player newPlayer = new Player(playerFirstName, playerLastName, playerAge);
             players.add(newPlayer);

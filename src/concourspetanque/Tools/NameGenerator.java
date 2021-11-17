@@ -21,7 +21,6 @@ public class NameGenerator {
         return Beginning[rand.nextInt(Beginning.length)] +
                 Middle[rand.nextInt(Middle.length)]+
                 End[rand.nextInt(End.length)];
-
     }
 
 }
