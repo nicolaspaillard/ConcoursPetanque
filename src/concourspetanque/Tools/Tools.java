@@ -58,4 +58,7 @@ public class Tools {
         }
         return teams;
     }
+    public static List<Player> GeneratePlayers(int i){
+
+    }
 }
