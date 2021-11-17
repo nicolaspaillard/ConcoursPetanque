@@ -36,7 +36,7 @@ public class Tools {
     }
     public static List<Team> AddPlayers(List<Player> players, int teamsCount){
         List<Team> teams = new ArrayList<Team>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < teamsCount; i++) {
             List<Player> team = new ArrayList<Player>();
             for (int j = 0; j < 2; j++) {
                 Player p = players.get(GenerateNumberBetween(0, players.size()));
