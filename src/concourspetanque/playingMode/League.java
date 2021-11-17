@@ -75,7 +75,7 @@ public class League {
 
         int teamNumber = GenerateNumberBetween(0, teams.size());//récupère une 1ere team au hasard
         List<Integer> prevTeamsNumber = new ArrayList<Integer>();//voir plus bas
-        for (int i = 0; i < remainingPlayers.size(); i++) {//récupère les joueurs un par un et les ajoute à une team
+        for (int i = 0; i <= remainingPlayers.size(); i++) {//récupère les joueurs un par un et les ajoute à une team
             while (prevTeamsNumber.contains(teamNumber)) {//si l'équipe a deja reçu un joueur supplémentaire
                 teamNumber = GenerateNumberBetween(0, teams.size());//récupère une team au hasard
             }        
