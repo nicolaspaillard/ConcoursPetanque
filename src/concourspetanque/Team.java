@@ -16,15 +16,19 @@ public class Team {//simples doublettes triplettes
     private int id;
 
     //private int score;
-    public Team(List<Player> players) {
+    public Team(List<Player> players, int id) {
         this.players = players;
+        this.id = id;
     }
+
     public List<Player> getPlayers() {
         return players;
     }
+
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
+
     public void addPlayer(Player player) {
         this.players.add(player);
     }
@@ -37,7 +41,7 @@ public class Team {//simples doublettes triplettes
     }
     @Override
     public String toString() {
-        return "Team [players=" + players + "]";
+        return "Team "+ (id+1) + " [players=" + players + "]";
     }
     
 }

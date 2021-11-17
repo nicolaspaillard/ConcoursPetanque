@@ -14,10 +14,11 @@ public class Player {
     private String lastName;
     private int age;
     
-    public Player(String firstName, String lastName, int age) {
+    public Player(String firstName, String lastName, int age, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -78,6 +79,6 @@ public class Player {
     }
     @Override
     public String toString() {
-        return this.firstName + " " + this.lastName + " " + this.age; //To change body of generated methods, choose Tools | Templates.
+        return "(" + (this.id + 1) + ") " + this.firstName + " " + this.lastName + " " + this.age + "ans";
     }
 }
