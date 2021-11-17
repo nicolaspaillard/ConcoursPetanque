@@ -11,7 +11,6 @@ package concourspetanque;
 public class Match {//simples doublettes triplettes
     private Team opponent1;
     private Team opponent2;
-
     private Team winner;
     //private int score;
 
