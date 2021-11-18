@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class RandomGenerators {
     private static Random rand = new Random();
+    
     public static String generateName() {
         String[] Beginning = { "Kr", "Ca", "Ra", "Mrok", "Cru",
             "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol",
@@ -17,12 +18,11 @@ public class RandomGenerators {
         return Beginning[rand.nextInt(Beginning.length)] +
             Middle[rand.nextInt(Middle.length)]+
             End[rand.nextInt(End.length)];
-        }
+    }
 
-        public static int generateNumberBetween(int min, int max) {
-            return rand.nextInt(max-min) + min;
-        }
-
+    public static int generateNumberBetween(int min, int max) {
+        return rand.nextInt(max-min) + min;
+    }
 }
 
 
