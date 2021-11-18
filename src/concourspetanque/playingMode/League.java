@@ -1,8 +1,8 @@
 package concourspetanque.playingMode;
 
-import concourspetanque.Player;
-import concourspetanque.Team;
-import concourspetanque.Tools.NameGenerator;
+import concourspetanque.Tools.RandomGenerators;
+import concourspetanque.models.Player;
+import concourspetanque.models.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,34 +13,17 @@ public class League {
      * Main method for executing different steps of the program
      */
     public void start() {
-        List<Player> players = generatePlayers();
+        
         printPlayers(players);
         System.out.println("\nNombre de joueurs inscrits : " + players.size());
         List<Team> teams = generateTeams(players);
         teams.forEach(System.out::println);
     }
     //#region TOOLS
-    public int GenerateNumberBetween(int min, int max) {
-        Random r = new Random();
-        return r.nextInt(max-min) + min;
-    }
+
     //#endregion
     //#region PLAYERS
-    private List<Player> generatePlayers() {
-        // Generate a random number of players
-        int numberOfPlayers = GenerateNumberBetween(12,36);
-        List<Player> players = new ArrayList<>();
-        for (int i = 0 ; i < numberOfPlayers ; i++) {
-            Player newPlayer = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), GenerateNumberBetween(18, 99), i);
-            players.add(newPlayer);
-        }
-        return players;
-    }
-    private void printPlayers(List<Player> players) {
-        for(Player player : players) {
-            System.out.println(player);
-        }
-    }
+    
     //#endregion
     //#region TEAMS
     private List<Team> generateTeams(List<Player> players){
