@@ -1,4 +1,4 @@
-package concourspetanque.models.leagueMatch;
+package concourspetanque.models.leagueRounds;
 
 import java.util.HashMap;
 import java.util.Map;

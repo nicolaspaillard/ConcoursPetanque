@@ -7,10 +7,10 @@ import java.util.Map;
 import concourspetanque.models.Match;
 import concourspetanque.models.Team;
 import concourspetanque.models.interfaces.RoundsInterface;
-import concourspetanque.models.leagueMatch.EightTeams;
-import concourspetanque.models.leagueMatch.SixTeams;
-import concourspetanque.models.leagueMatch.TenTeams;
-import concourspetanque.models.leagueMatch.TwelveTeams;
+import concourspetanque.models.leagueRounds.EightTeams;
+import concourspetanque.models.leagueRounds.SixTeams;
+import concourspetanque.models.leagueRounds.TenTeams;
+import concourspetanque.models.leagueRounds.TwelveTeams;
 
 public class MatchsController {
     List<Match> matchs;
