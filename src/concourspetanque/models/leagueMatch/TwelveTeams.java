@@ -1,11 +1,13 @@
-package concourspetanque.leagueMatchSetup;
+package concourspetanque.models.leagueMatch;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TwelveTeamsSetup implements RoundsSetup{
+import concourspetanque.models.interfaces.RoundsInterface;
+
+public class TwelveTeams implements RoundsInterface{
     public Map<String, int[]> roundOne() {
-        Map<String, int[]> round = new TenTeamsSetup().roundOne();
+        Map<String, int[]> round = new TenTeams().roundOne();
         round.put("6", new int[]{11, 12});
         return round;
     }
@@ -20,7 +22,7 @@ public class TwelveTeamsSetup implements RoundsSetup{
         return round;
     }
     public Map<String, int[]> roundThree() {
-        Map<String, int[]> round = new EightTeamsSetup().roundTwo();
+        Map<String, int[]> round = new EightTeams().roundTwo();
         round.put("5", new int[]{12, 9});
         round.put("6", new int[]{10, 11});
         return round;

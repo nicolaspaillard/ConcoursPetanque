@@ -3,8 +3,8 @@ package concourspetanque.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import concourspetanque.Tools.RandomGenerators;
 import concourspetanque.models.Player;
+import concourspetanque.tools.RandomGenerators;
 
 public class PlayersController {
     private List<Player> players;

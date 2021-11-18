@@ -1,4 +1,4 @@
-package concourspetanque.Tools;
+package concourspetanque.tools;
 
 import java.util.Random;
 

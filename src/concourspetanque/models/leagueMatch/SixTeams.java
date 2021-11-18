@@ -1,9 +1,11 @@
-package concourspetanque.leagueMatchSetup;
+package concourspetanque.models.leagueMatch;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SixTeamsSetup implements RoundsSetup{
+import concourspetanque.models.interfaces.RoundsInterface;
+
+public class SixTeams implements RoundsInterface{
     public Map<String, int[]> roundOne() {
         Map<String, int[]> round = new HashMap<>();
         round.put("1", new int[]{1, 2});

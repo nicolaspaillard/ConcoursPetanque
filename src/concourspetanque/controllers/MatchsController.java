@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import concourspetanque.leagueMatchSetup.EightTeamsSetup;
-import concourspetanque.leagueMatchSetup.RoundsSetup;
-import concourspetanque.leagueMatchSetup.SixTeamsSetup;
-import concourspetanque.leagueMatchSetup.TenTeamsSetup;
-import concourspetanque.leagueMatchSetup.TwelveTeamsSetup;
 import concourspetanque.models.Match;
 import concourspetanque.models.Team;
+import concourspetanque.models.interfaces.RoundsInterface;
+import concourspetanque.models.leagueMatch.EightTeams;
+import concourspetanque.models.leagueMatch.SixTeams;
+import concourspetanque.models.leagueMatch.TenTeams;
+import concourspetanque.models.leagueMatch.TwelveTeams;
 
 public class MatchsController {
     List<Match> matchs;
@@ -34,7 +34,7 @@ public class MatchsController {
     }  
     
     public List<Match> playMatchs(List<Team> teams) {
-        RoundsSetup roundsSetup = getTeamsConfrontationSetup(teams.size());
+        RoundsInterface roundsSetup = getTeamsConfrontationSetup(teams.size());
         // Jouer les 4 rounds
         List<Match> matchs = new ArrayList<>();
         for (int i = 0 ; i < 4 ; i++) {
@@ -69,26 +69,26 @@ public class MatchsController {
     }
 
 
-    private RoundsSetup getTeamsConfrontationSetup(int size) {
+    private RoundsInterface getTeamsConfrontationSetup(int size) {
         // Récupérer le setup des match (selon le nombre d'équipes)
-        RoundsSetup roundsSetup;
+        RoundsInterface roundsSetup;
         switch (size) {
             case 6:
-                roundsSetup = new SixTeamsSetup();
+                roundsSetup = new SixTeams();
                 break;
             case 8:
-                roundsSetup = new EightTeamsSetup();
+                roundsSetup = new EightTeams();
                 break;
             case 10:
-                roundsSetup = new TenTeamsSetup();
+                roundsSetup = new TenTeams();
                 break;
             default:
-                roundsSetup = new TwelveTeamsSetup();
+                roundsSetup = new TwelveTeams();
         }
         return roundsSetup;
     }
 
-    private Map<String,int[]> getRoundOpponents(int round, RoundsSetup roundsSetup) {
+    private Map<String,int[]> getRoundOpponents(int round, RoundsInterface roundsSetup) {
         // Récupérer la Map correspondant aux opposants du round
         Map<String, int[]> opponentsMap;
         switch (round) {
