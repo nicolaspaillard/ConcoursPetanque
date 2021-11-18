@@ -7,11 +7,34 @@ import concourspetanque.Tools.RandomGenerators;
 import concourspetanque.models.Player;
 
 public class PlayersController {
-    List<Player> players;
+    private List<Player> players;
+    private int playersCount;  
+
 
     public PlayersController() {
         this.players = generatePlayers();
+        this.playersCount = this.players.size();
     }
+    
+    public List<Player> getPlayers() {
+        return players;
+    }
+    // public void setPlayers(List<Player> players) {
+    //     this.players = players;
+    // }
+
+    public int getPlayersCount() {
+        return playersCount;
+    }
+    // public void setPlayersCount(int playersCount) {
+    //     this.playersCount = playersCount;
+    // }
+
+    public void printPlayers() {
+        for(Player player : this.players) {
+            System.out.println(player);
+        }
+    }    
 
     private List<Player> generatePlayers() {
         // Generate a random number of players
@@ -22,10 +45,5 @@ public class PlayersController {
             players.add(newPlayer);
         }
         return players;
-    }
-    private void printPlayers(List<Player> players) {
-        for(Player player : players) {
-            System.out.println(player);
-        }
     }
 }
