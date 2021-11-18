@@ -3,9 +3,9 @@ package concourspetanque.models.leagueRounds;
 import java.util.HashMap;
 import java.util.Map;
 
-import concourspetanque.models.interfaces.RoundsInterface;
+import concourspetanque.models.interfaces.LeagueRoundsInterface;
 
-public class EightTeams implements RoundsInterface{
+public class EightTeams implements LeagueRoundsInterface{
     public Map<String, int[]> roundOne() {
         Map<String, int[]> round = new SixTeams().roundOne();
         round.put("4", new int[]{7, 8});
