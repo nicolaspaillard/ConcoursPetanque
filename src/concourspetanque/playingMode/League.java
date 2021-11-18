@@ -21,9 +21,7 @@ public class League {
 
         TeamsController teamsController = new TeamsController(playersController.getPlayers());
         teamsController.printTeams();
-
-        
-        teams.forEach(System.out::println);
+        teamsController.getTeams().forEach(System.out::println);
     }
     //#region TOOLS
 
