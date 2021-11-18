@@ -4,7 +4,7 @@
  */
 package concourspetanque.models;
 
-import concourspetanque.tools.RandomGenerators;
+import concourspetanque.controllers.tools.RandomGenerators;
 
 /**
  *

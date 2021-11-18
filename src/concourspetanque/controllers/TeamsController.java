@@ -3,9 +3,9 @@ package concourspetanque.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import concourspetanque.controllers.tools.RandomGenerators;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
-import concourspetanque.tools.RandomGenerators;
 
 public class TeamsController {
     private List<Team> teams;
