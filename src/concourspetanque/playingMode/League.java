@@ -47,35 +47,35 @@ public class League {
         List<Team> teams = new ArrayList<>();
         if(players.size()<16){
             //12 - 15 joueurs -> 6 teams
-            teams = AddPlayers(players, 6);
+            teams = addPlayers(players, 6);
         }else if(players.size()<20){
             //16 - 19 joueurs -> 8 teams
-            teams = AddPlayers(players, 8);
+            teams = addPlayers(players, 8);
         }else if(players.size()<24){
             //20 - 23 joueurs -> 10 teams
-            teams = AddPlayers(players, 10);
+            teams = addPlayers(players, 10);
         }else {
             //24 joueurs ou plus -> 12 teams
-            teams = AddPlayers(players, 12);                
+            teams = addPlayers(players, 12);                
         }
         return teams;       
     }
-    public List<Team> AddPlayers(List<Player> players, int teamsCount){
+    public List<Team> addPlayers(List<Player> players, int teamsCount){
         List<Team> teams = new ArrayList<>();
         // Constitue les équipes avec 2 joueurs aléatoires
         for (int i = 0; i < teamsCount; i++) {
-            List<Player> team = selectTeamPlayers(players);
+            List<Player> team = selectPlayers(players);
             team.forEach(p -> players.remove(p)); // Retire les deux joueurs sélectionnés de la liste
             teams.add(new Team(team, i));
         }
         // S'il reste des joueurs, les ajoute a des équipes aléatoires
         if (players.size()>0) {
-            teams = AddRemainingPlayers(players, teams);
+            teams = addRemainingPlayers(players, teams);
         }
         return teams;
     }
 
-    private List<Player> selectTeamPlayers(List<Player> players) {
+    private List<Player> selectPlayers(List<Player> players) {
         List<Player> team = new ArrayList<>();
         // Sélectionne 2 joueurs aléatoires et les ajoute à l'équipe
         for (int i = 0; i < 2; i++) {
@@ -86,7 +86,7 @@ public class League {
         return team;
     }
 
-    public List<Team> AddRemainingPlayers(List<Player> remainingPlayers, List<Team> teams){
+    public List<Team> addRemainingPlayers(List<Player> remainingPlayers, List<Team> teams){
         // Tant qu'il reste des joueurs, boucler pour les caser dans des équipes aléatoires de 2 joueurs
         while (remainingPlayers.size() > 0) {
             int randomTeam = GenerateNumberBetween(0, teams.size());
