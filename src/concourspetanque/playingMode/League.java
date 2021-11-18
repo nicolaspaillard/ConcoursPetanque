@@ -1,9 +1,9 @@
 package concourspetanque.playingMode;
 
-import concourspetanque.Match;
-import concourspetanque.Player;
-import concourspetanque.Team;
-import concourspetanque.Tools.NameGenerator;
+import concourspetanque.models.Match;
+import concourspetanque.models.Player;
+import concourspetanque.models.Team;
+import concourspetanque.Tools.RandomGenerators;
 import concourspetanque.leagueMatchSetup.*;
 
 import java.util.ArrayList;
@@ -43,7 +43,11 @@ public class League {
         int numberOfPlayers = GenerateNumberBetween(12,36);
         List<Player> players = new ArrayList<>();
         for (int i = 0 ; i < numberOfPlayers ; i++) {
-            Player newPlayer = new Player(NameGenerator.GenerateName(), NameGenerator.GenerateName(), GenerateNumberBetween(18, 99), i);
+            Player newPlayer = new Player(
+                    RandomGenerators.generateName(),
+                    RandomGenerators.generateName(),
+                    RandomGenerators.generateNumberBetween(18, 99),
+                    i);
             players.add(newPlayer);
         }
         return players;
