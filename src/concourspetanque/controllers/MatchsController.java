@@ -6,7 +6,7 @@ import java.util.Map;
 
 import concourspetanque.models.Match;
 import concourspetanque.models.Team;
-import concourspetanque.models.interfaces.RoundsInterface;
+import concourspetanque.models.interfaces.LeagueRoundsInterface;
 import concourspetanque.models.leagueRounds.EightTeams;
 import concourspetanque.models.leagueRounds.SixTeams;
 import concourspetanque.models.leagueRounds.TenTeams;
@@ -34,7 +34,7 @@ public class MatchsController {
     }  
     
     public List<Match> playMatchs(List<Team> teams) {
-        RoundsInterface roundsSetup = getTeamsConfrontationSetup(teams.size());
+        LeagueRoundsInterface roundsSetup = getTeamsConfrontationSetup(teams.size());
         // Jouer les 4 rounds
         List<Match> matchs = new ArrayList<>();
         for (int i = 0 ; i < 4 ; i++) {
@@ -69,9 +69,9 @@ public class MatchsController {
     }
 
 
-    private RoundsInterface getTeamsConfrontationSetup(int size) {
+    private LeagueRoundsInterface getTeamsConfrontationSetup(int size) {
         // Récupérer le setup des match (selon le nombre d'équipes)
-        RoundsInterface roundsSetup;
+        LeagueRoundsInterface roundsSetup;
         switch (size) {
             case 6:
                 roundsSetup = new SixTeams();
@@ -88,7 +88,7 @@ public class MatchsController {
         return roundsSetup;
     }
 
-    private Map<String,int[]> getRoundOpponents(int round, RoundsInterface roundsSetup) {
+    private Map<String,int[]> getRoundOpponents(int round, LeagueRoundsInterface roundsSetup) {
         // Récupérer la Map correspondant aux opposants du round
         Map<String, int[]> opponentsMap;
         switch (round) {
