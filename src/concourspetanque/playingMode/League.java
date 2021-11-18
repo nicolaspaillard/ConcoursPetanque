@@ -1,5 +1,6 @@
 package concourspetanque.playingMode;
 
+import concourspetanque.controllers.MatchsController;
 import concourspetanque.controllers.PlayersController;
 import concourspetanque.controllers.TeamsController;
 
@@ -15,5 +16,9 @@ public class League {
         TeamsController teamsController = new TeamsController(playersController.getPlayers());
         teamsController.printTeams();
         teamsController.getTeams().forEach(System.out::println);
+
+        // Jouer les matchs
+        MatchsController matchsController = new MatchsController(teamsController.getTeams());
+        matchsController.printMatchs();
     }
 }
