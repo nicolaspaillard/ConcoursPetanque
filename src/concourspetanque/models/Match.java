@@ -4,7 +4,7 @@
  */
 package concourspetanque.models;
 
-import java.util.Random;
+import concourspetanque.Tools.RandomGenerators;
 
 /**
  *
@@ -24,12 +24,10 @@ public class Match {//simples doublettes triplettes
         this.winner = match();
     }
     public Team match(){
-        //remplacer par fonction random ?
-        Random r = new Random();
-        opponent1score = r.nextInt(14);
-        opponent2score = r.nextInt(14);
+        opponent1score = RandomGenerators.generateNumberBetween(0, 14);
+        opponent2score = RandomGenerators.generateNumberBetween(0, 14);
         while (opponent2score == opponent1score) {
-            opponent2score = r.nextInt(14);
+            opponent2score = RandomGenerators.generateNumberBetween(0, 14);
         }
         return opponent1score > opponent2score ? opponent1 : opponent2;
     }
