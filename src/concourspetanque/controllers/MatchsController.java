@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import concourspetanque.controllers.tools.Utils;
 import concourspetanque.models.Match;
 import concourspetanque.models.Team;
 import concourspetanque.models.interfaces.RoundsInterface;
@@ -19,17 +20,28 @@ public class MatchsController {
         this.matchs = playMatchs(teams);
     }
 
-    
     public List<Match> getMatchs() {
         return matchs;
     }
-    // public void setMatchs(List<Match> matchs) {
-    //     this.matchs = matchs;
-    // }
 
-    public void printMatchs() {
-        for(Match match : this.matchs) {
-            System.out.println(match);
+    public void printMatchs(int teamsSize) {
+        Utils.printLine(40);
+        System.out.println("DEROULEMENT DES MATCHS");
+        int matchsPerRound = teamsSize / 2;
+        int round = 1;
+        for(int i = 0 ; i < this.matchs.size() ; i++) {
+            if (i % matchsPerRound == 0) {
+                System.out.println("\nPARTIE " + round + "\n");
+                round++;
+            }
+            System.out.printf("%-8s", "Team" + (matchs.get(i).getOpponent1().getId() + 1));
+            System.out.printf("%-3s", matchs.get(i).getOpponent1score());
+            System.out.print(" - ");
+            System.out.printf("%3s", matchs.get(i).getOpponent2score());
+            System.out.printf("%8s", "Team" + (matchs.get(i).getOpponent2().getId() + 1));
+//            System.out.printf("%6s", "==> ");
+//            System.out.printf("%-25s", "Winner : Team" + (matchs.get(i).getWinner().getId() + 1));
+            System.out.println("");
         }
     }  
     

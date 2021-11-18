@@ -44,6 +44,14 @@ public class Match {//simples doublettes triplettes
         return winner;
     }
 
+    public int getOpponent1score() {
+        return opponent1score;
+    }
+
+    public int getOpponent2score() {
+        return opponent2score;
+    }
+
     @Override
     public String toString() {
         return "Match{" +
