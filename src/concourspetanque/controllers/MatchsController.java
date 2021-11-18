@@ -19,7 +19,6 @@ public class MatchsController {
         this.matchs = playMatchs(teams);
     }
 
-    
     public List<Match> getMatchs() {
         return matchs;
     }
@@ -67,7 +66,6 @@ public class MatchsController {
         Match match = new Match(teams.get(teamOneIndex), teams.get(teamTwoIndex));
         return match;
     }
-
 
     private LeagueRoundsInterface getTeamsConfrontationSetup(int size) {
         // Récupérer le setup des match (selon le nombre d'équipes)
