@@ -1,23 +1,35 @@
 package concourspetanque.playingMode;
 
+import concourspetanque.Match;
 import concourspetanque.Player;
 import concourspetanque.Team;
 import concourspetanque.Tools.NameGenerator;
+import concourspetanque.leagueMatchSetup.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class League {
+    List<Player> players;
+    List<Team> teams;
+    List<Match> matchs;
+
     /**
      * Main method for executing different steps of the program
      */
     public void start() {
-        List<Player> players = generatePlayers();
-        printPlayers(players);
-        System.out.println("\nNombre de joueurs inscrits : " + players.size());
-        List<Team> teams = generateTeams(players);
-        teams.forEach(System.out::println);
+        // Générer les joueurs
+        this.players = generatePlayers();
+        printPlayers(this.players);
+        System.out.println("\nNombre de joueurs inscrits : " + this.players.size());
+        // Générer les équipes
+        this.teams = generateTeams(this.players);
+        this.teams.forEach(t -> System.out.println(t));
+        // Jouer les matchs
+        this.matchs = playMatchs(this.teams);
+        this.matchs.forEach(m -> System.out.println(m));
     }
     //#region TOOLS
     public int GenerateNumberBetween(int min, int max) {
@@ -110,6 +122,81 @@ public class League {
 //            prevTeamsNumber.add(teamNumber);//ajoute l'équipe aux équipes déjà selectionnées
 //        }
         return teams;
+    }
+    //#endregion
+    //#region MATCHS
+    public List<Match> playMatchs(List<Team> teams) {
+        RoundsSetup roundsSetup = getTeamsConfrontationSetup(teams.size());
+        // Jouer les 4 rounds
+        List<Match> matchs = new ArrayList<>();
+        for (int i = 0 ; i < 4 ; i++) {
+            Map<String, int[]> roundOpponents = getRoundOpponents(i, roundsSetup);
+            List<Match> roundMatchs = playRound(roundOpponents);
+            matchs.addAll(roundMatchs);
+        }
+        return matchs;
+    }
+
+    private List<Match> playRound(Map<String,int[]> roundOpponents) {
+        List<Match> matchs = new ArrayList<>();
+        // Jouer les différents matchs du round
+        for (int i = 0 ; i < roundOpponents.size() ; i++) {
+            String matchKey = String.valueOf(i + 1);
+            Match match = playMatch(roundOpponents, matchKey);
+            matchs.add(match);
+        }
+        return matchs;
+    }
+
+    private Match playMatch(Map<String,int[]> roundOpponents, String matchKey) {
+        // Récupérer les index des opposants dans la map
+        int[] opponents = roundOpponents.get(matchKey);
+        // On retire 1 à l'index (= opponents[0] - 1) car List<teams> commence à 0,
+        // et les setup font commencer l'index à 1...
+        int teamOneIndex = opponents[0] - 1;
+        int teamTwoIndex = opponents[1] - 1;
+        // Jouer le match
+        Match match = new Match(teams.get(teamOneIndex), teams.get(teamTwoIndex));
+        return match;
+    }
+
+
+    private RoundsSetup getTeamsConfrontationSetup(int size) {
+        // Récupérer le setup des match (selon le nombre d'équipes)
+        RoundsSetup roundsSetup;
+        switch (size) {
+            case 6:
+                roundsSetup = new SixTeamsSetup();
+                break;
+            case 8:
+                roundsSetup = new EightTeamsSetup();
+                break;
+            case 10:
+                roundsSetup = new TenTeamsSetup();
+                break;
+            default:
+                roundsSetup = new TwelveTeamsSetup();
+        }
+        return roundsSetup;
+    }
+
+    private Map<String,int[]> getRoundOpponents(int round, RoundsSetup roundsSetup) {
+        // Récupérer la Map correspondant aux opposants du round
+        Map<String, int[]> opponentsMap;
+        switch (round) {
+            case 0:
+                opponentsMap = roundsSetup.roundOne();
+                break;
+            case 1:
+                opponentsMap = roundsSetup.roundTwo();
+                break;
+            case 2:
+                opponentsMap = roundsSetup.roundThree();
+                break;
+            default:
+                opponentsMap = roundsSetup.roundFour();
+        }
+        return opponentsMap;
     }
     //#endregion
 }
