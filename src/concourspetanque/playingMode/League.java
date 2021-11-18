@@ -1,6 +1,8 @@
 package concourspetanque.playingMode;
 
 import concourspetanque.Tools.RandomGenerators;
+import concourspetanque.controllers.PlayersController;
+import concourspetanque.controllers.TeamsController;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
 
@@ -13,10 +15,14 @@ public class League {
      * Main method for executing different steps of the program
      */
     public void start() {
+        PlayersController playersController = new PlayersController();
+        playersController.printPlayers();        
+        System.out.println("\nNombre de joueurs inscrits : " + playersController.getPlayersCount());
+
+        TeamsController teamsController = new TeamsController(playersController.getPlayers());
+        teamsController.printTeams();
+
         
-        printPlayers(players);
-        System.out.println("\nNombre de joueurs inscrits : " + players.size());
-        List<Team> teams = generateTeams(players);
         teams.forEach(System.out::println);
     }
     //#region TOOLS
