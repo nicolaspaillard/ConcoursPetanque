@@ -1,4 +1,4 @@
-package concourspetanque.playingMode;
+package concourspetanque.views;
 
 import concourspetanque.controllers.MatchsController;
 import concourspetanque.controllers.PlayersController;

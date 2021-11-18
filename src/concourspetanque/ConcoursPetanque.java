@@ -1,5 +1,5 @@
 package concourspetanque;
-import concourspetanque.playingMode.League;
+import concourspetanque.views.League;
 /**
  *
  * @author nicpa
