@@ -21,7 +21,7 @@ public class League {
         TeamsController teamsController = new TeamsController(playersController.getPlayers());
 
         MatchsController matchsController = new MatchsController(teamsController.getTeams());
-        matchsController.setRanks();
+
         teamsController.updateTeamsMatchs(matchsController.getMatchs());
 
         // Afficher les résultats

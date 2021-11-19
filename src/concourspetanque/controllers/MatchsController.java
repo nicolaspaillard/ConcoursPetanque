@@ -22,12 +22,6 @@ public class MatchsController {
     public List<Match> getMatchs() {
         return matchs;
     }
-    
-    public void setRanks(){
-        for (Match match : matchs) {
-            match.getWinner().position++;
-        }
-    }
 
     public List<Match> playMatchs(List<Team> teams) {
         LeagueRoundsInterface roundsSetup = getTeamsConfrontationSetup(teams.size());
