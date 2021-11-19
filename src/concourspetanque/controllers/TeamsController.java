@@ -17,9 +17,6 @@ public class TeamsController {
     public List<Team> getTeams() {
         return teams;
     }
-    // public void setTeams(List<Team> teams) {
-    //     this.teams = teams;
-    // }
 
     private List<Team> generateTeams(List<Player> players){
         List<Team> teams = new ArrayList<>();
