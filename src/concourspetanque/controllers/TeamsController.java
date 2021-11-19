@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import concourspetanque.controllers.tools.RandomGenerators;
-import concourspetanque.models.Match;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
 
@@ -78,31 +77,5 @@ public class TeamsController {
             remainingPlayers.remove(remainingPlayers.get(0));
         }
         return teams;
-    }
-
-    public void updateTeamsMatchs(List<Match> matchs) {
-        for(Match match : matchs) {
-            // Ajoute les matchs à la liste des matchs joués pour chaque équipe
-            int teamOneId = match.getOpponent1().getId();
-            int teamTwoId = match.getOpponent2().getId();
-            this.teams.get(teamOneId).getMatchs().add(match);
-            this.teams.get(teamTwoId).getMatchs().add(match);
-            // Ajoute les points (positifs et négatifs) aux équipes
-            int teamOnePoints = match.getScore1();
-            int teamTwoPoints = match.getScore2();
-            this.teams.get(teamOneId).addPoints(teamOnePoints);
-            this.teams.get(teamOneId).removePoints(teamTwoPoints);
-            this.teams.get(teamTwoId).addPoints(teamTwoPoints);
-            this.teams.get(teamTwoId).removePoints(teamOnePoints);
-            // Compte le nombre de parties gagnées
-            int winnerId = match.getWinner().getId();
-            this.teams.get(winnerId).addVictory();
-        }
-        // Pour chaque équipe calcule goalAverage
-        for (Team team : teams) {
-            team.setGoalAverage(team.getPositivePoints() + team.getNegativePoints());
-        }
-        // classer les équipes ?
-//        teams.sort( Comparator.comparingInt(Team::getGoalAverage) );
     }
 }
