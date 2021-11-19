@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import concourspetanque.controllers.tools.Utils;
 import concourspetanque.models.Match;
 import concourspetanque.models.Team;
 import concourspetanque.models.interfaces.LeagueRoundsInterface;
@@ -17,34 +16,19 @@ public class MatchsController {
     List<Match> matchs;
 
     public MatchsController(List<Team> teams) {
-        this.matchs = playMatchs(teams);
+        this.matchs = playMatchs(teams);//a refaire, peut être simplifié playMatchs/playMatch/playRound
     }
 
     public List<Match> getMatchs() {
         return matchs;
     }
-
-    public void printMatchs(int teamsSize) {
-        Utils.printLine(40);
-        System.out.println("DEROULEMENT DES MATCHS");
-        int matchsPerRound = teamsSize / 2;
-        int round = 1;
-        for(int i = 0 ; i < this.matchs.size() ; i++) {
-            if (i % matchsPerRound == 0) {
-                System.out.println("\nPARTIE " + round + "\n");
-                round++;
-            }
-            System.out.printf("%-8s", "Team" + (matchs.get(i).getOpponent1().getId() + 1));
-            System.out.printf("%-3s", matchs.get(i).getOpponent1score());
-            System.out.print(" - ");
-            System.out.printf("%3s", matchs.get(i).getOpponent2score());
-            System.out.printf("%8s", "Team" + (matchs.get(i).getOpponent2().getId() + 1));
-//            System.out.printf("%6s", "==> ");
-//            System.out.printf("%-25s", "Winner : Team" + (matchs.get(i).getWinner().getId() + 1));
-            System.out.println("");
-        }
-    }  
     
+    public void setRanks(){
+        for (Match match : matchs) {
+            match.getWinner().position++;
+        }
+    }
+
     public List<Match> playMatchs(List<Team> teams) {
         LeagueRoundsInterface roundsSetup = getTeamsConfrontationSetup(teams.size());
         // Jouer les 4 rounds

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import concourspetanque.controllers.tools.RandomGenerators;
-import concourspetanque.controllers.tools.Utils;
 import concourspetanque.models.Match;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
@@ -22,26 +21,6 @@ public class TeamsController {
     // public void setTeams(List<Team> teams) {
     //     this.teams = teams;
     // }
-    
-    public void printTeams() {
-        Utils.printLine(40);
-        System.out.println("CONSTITUTION DES EQUIPES");
-        // En-têtes du tableau
-        Utils.printLine(94);
-        System.out.printf("%-6s", "Team");
-        System.out.printf("%-30s", "Joueur 1");
-        System.out.printf("%-30s", "Joueur 2");
-        System.out.printf("%-30s", "Joueur 3");
-        Utils.printLine(94);
-        for(Team team : this.teams) {
-            System.out.printf("%-6s", (team.getId() + 1));
-            for(Player p: team.getPlayers()) {
-                System.out.printf("%-30s", p.getFirstName() + " " + p.getLastName() + " (" + p.getId() + ")");
-            }
-            System.out.println("");
-//            System.out.println(team);
-        }
-    }
 
     private List<Team> generateTeams(List<Player> players){
         List<Team> teams = new ArrayList<>();
@@ -106,11 +85,11 @@ public class TeamsController {
             // Ajoute les matchs à la liste des matchs joués pour chaque équipe
             int teamOneId = match.getOpponent1().getId();
             int teamTwoId = match.getOpponent2().getId();
-            this.teams.get(teamOneId).getPlayedMatchs().add(match);
-            this.teams.get(teamTwoId).getPlayedMatchs().add(match);
+            this.teams.get(teamOneId).getMatchs().add(match);
+            this.teams.get(teamTwoId).getMatchs().add(match);
             // Ajoute les points (positifs et négatifs) aux équipes
-            int teamOnePoints = match.getOpponent1score();
-            int teamTwoPoints = match.getOpponent2score();
+            int teamOnePoints = match.getScore1();
+            int teamTwoPoints = match.getScore2();
             this.teams.get(teamOneId).addPoints(teamOnePoints);
             this.teams.get(teamOneId).removePoints(teamTwoPoints);
             this.teams.get(teamTwoId).addPoints(teamTwoPoints);

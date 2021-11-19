@@ -17,16 +17,11 @@ public class League {
      */
     public void start() {
         PlayersController playersController = new PlayersController();
-        playersController.printPlayers();
 
         TeamsController teamsController = new TeamsController(playersController.getPlayers());
-        teamsController.printTeams();
 
-        // Jouer les matchs
         MatchsController matchsController = new MatchsController(teamsController.getTeams());
-        matchsController.printMatchs(teamsController.getTeams().size());
-
-        // Ajouter les matchs joués à chaque team
+        matchsController.setRanks();
         teamsController.updateTeamsMatchs(matchsController.getMatchs());
 
         // Afficher les résultats
@@ -69,8 +64,8 @@ public class League {
                 }
             }
             // Affiche Parties
-            for(Match match : team.getPlayedMatchs()) {
-                System.out.printf("%-11s", match.getOpponent1score() + " / " + match.getOpponent2score());
+            for(Match match : team.getMatchs()) {
+                System.out.printf("%-11s", match.getScore1() + " / " + match.getScore2());
             }
             // Affiche Points et Total
             System.out.printf("%6s", team.getPositivePoints());

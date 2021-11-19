@@ -13,25 +13,22 @@ import concourspetanque.controllers.tools.RandomGenerators;
 public class Match {//simples doublettes triplettes
     private Team opponent1;
     private Team opponent2;
-    private int opponent1score = 0;
-    private int opponent2score = 0;
+    private int score1 = 0;
+    private int score2 = 0;
     private Team winner;
     //private int score;
 
     public Match(Team opponent1, Team opponent2) {
         this.opponent1 = opponent1;
         this.opponent2 = opponent2;
-        this.winner = match();
-    }
-    public Team match(){
-        opponent1score = RandomGenerators.generateNumberBetween(0, 14);
-        opponent2score = RandomGenerators.generateNumberBetween(0, 14);
-        while (opponent2score == opponent1score) {
-            opponent2score = RandomGenerators.generateNumberBetween(0, 14);
+        score1 = RandomGenerators.generateNumberBetween(0, 13);
+        score2 = RandomGenerators.generateNumberBetween(0, 13);
+        while (score2 == score1) {
+            score2 = RandomGenerators.generateNumberBetween(0, 13);
         }
-        return opponent1score > opponent2score ? opponent1 : opponent2;
+        this.winner = score1 > score2 ? opponent1 : opponent2;
     }
-
+ 
     public Team getOpponent1() {
         return opponent1;
     }
@@ -44,19 +41,19 @@ public class Match {//simples doublettes triplettes
         return winner;
     }
 
-    public int getOpponent1score() {
-        return opponent1score;
+    public int getScore1() {
+        return score1;
     }
 
-    public int getOpponent2score() {
-        return opponent2score;
+    public int getScore2() {
+        return score2;
     }
 
     @Override
     public String toString() {
         return "Match{" +
-                "Team(" + opponent1.getId() + ") score = " + opponent1score +
-                ", Team(" + opponent2.getId() + ") score = " + opponent2score +
+                "Team(" + opponent1.getId() + ") score = " + score1 +
+                ", Team(" + opponent2.getId() + ") score = " + score2 +
                 ", winner = " + winner.getId() +
                 '}';
     }

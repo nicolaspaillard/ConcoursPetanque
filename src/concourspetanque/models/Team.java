@@ -13,11 +13,12 @@ import java.util.List;
  */
 public class Team {//simples doublettes triplettes
     private List<Player> players = new ArrayList<>();
-    private List<Match> playedMatchs = new ArrayList<>();
+    private List<Match> matchs = new ArrayList<>();
     private int positivePoints = 0;
     private int negativePoints = 0;
     private int victories = 0;
     private int goalAverage = 0;
+    public int position = 0;
     private int id;
 
     //private int score;
@@ -56,12 +57,12 @@ public class Team {//simples doublettes triplettes
         this.id = id;
     }
 
-    public List<Match> getPlayedMatchs() {
-        return playedMatchs;
+    public List<Match> getMatchs() {
+        return matchs;
     }
 
-    public void setPlayedMatchs(List<Match> playedMatchs) {
-        this.playedMatchs = playedMatchs;
+    public void setMatchs(List<Match> matchs) {
+        this.matchs = matchs;
     }
 
     public int getPositivePoints() {

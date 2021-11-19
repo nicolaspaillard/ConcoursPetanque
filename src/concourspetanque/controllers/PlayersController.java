@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import concourspetanque.controllers.tools.RandomGenerators;
-import concourspetanque.controllers.tools.Utils;
 import concourspetanque.models.Player;
 
 public class PlayersController {
@@ -30,28 +29,6 @@ public class PlayersController {
     // public void setPlayersCount(int playersCount) {
     //     this.playersCount = playersCount;
     // }
-
-    public void printPlayers() {
-        Utils.printLine(40);
-        System.out.println("INSCRIPTION DES JOUEURS");
-
-        // En-têtes du tableau
-        Utils.printLine(40);
-        System.out.printf("%-4s", "Id");
-        System.out.printf("%-15s", "Prénom");
-        System.out.printf("%-15s", "Nom");
-        System.out.printf("%-6s", "Age");
-        Utils.printLine(40);
-        // Boucle sur les players
-        for(Player player : this.players) {
-            System.out.printf("%-4s", player.getId());
-            System.out.printf("%-15s", player.getFirstName());
-            System.out.printf("%-15s", player.getLastName());
-            System.out.printf("%-6s", player.getAge());
-            System.out.println("");
-        }
-        System.out.println("\nNombre de joueurs inscrits : " + players.size());
-    }    
 
     private List<Player> generatePlayers() {
         // Generate a random number of players
