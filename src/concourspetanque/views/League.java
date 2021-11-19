@@ -38,6 +38,7 @@ public class League {
         System.out.println("\nFINAL RESULTS");
         // Affiche les en-têtes du tableau
         Utils.printLine(130);
+        //headers
         System.out.printf("%-6s", "TEAM");
         System.out.printf("%-39s", "NOMS");
         System.out.printf("%-11s", "PARTIE 1");
@@ -51,6 +52,8 @@ public class League {
         System.out.printf("%10s", "PLACE");
         Utils.printLine(130);
         // Boucle sur les différentes équipes et affiche les informations ligne par ligne
+
+        //scores
         for (Team team: teams) {
             // Affiche Team ID
             System.out.printf("%-6s", (team.getId() + 1));
