@@ -15,8 +15,6 @@ public class Match {//simples doublettes triplettes
     private Team team2;
     private int score1 = 0;
     private int score2 = 0;
-    private Team winner;
-    //private int score;
 
     public Match(Team team1, Team team2) {
         this.team1 = team1;
@@ -27,15 +25,35 @@ public class Match {//simples doublettes triplettes
             this.score1 = RandomGenerators.generateNumberBetween(0, 13);
             this.score2 = RandomGenerators.generateNumberBetween(0, 13);
         }
-        this.winner = this.score1 > this.score2 ? this.team1 : this.team2;
     }
     
+    public Team getWinner(){
+        return score1 > score2 ? team1 : team2;
+    }
+    public Team getLooser(){
+        return score1 > score2 ? team2 : team1;
+    }
+
+    public Team getTeam1(){
+        return team1;
+    }
+    public Team getTeam2(){
+        return team2;
+    }
+
+    public int getScore1(){
+        return score1;
+    }
+    public int getScore2(){
+        return score2;
+    }
+
     @Override
     public String toString() {
         return "Match{" +
                 "Team " + team1.getId() + " = " + score1 +
                 " - Team " + team2.getId() + " = " + score2 +
-                " - Winner : Team " + winner.getId() +
+                " - Winner : Team " + getWinner().getId() +
                 '}';
     }
 }
