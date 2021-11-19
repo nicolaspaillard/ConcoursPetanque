@@ -8,7 +8,6 @@ import concourspetanque.models.Match;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class League {
