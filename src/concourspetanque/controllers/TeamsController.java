@@ -39,7 +39,7 @@ public class TeamsController {
     private List<Team> addPlayers(List<Player> players, int teamsCount){
         List<Team> teams = new ArrayList<>();
         // Constitue les équipes avec 2 joueurs aléatoires
-        for (int i = 0; i < teamsCount; i++) {
+        for (int i = 1; i < teamsCount+1; i++) {
             List<Player> selectedPlayers = selectPlayers(players);
             selectedPlayers.forEach(p -> players.remove(p)); // Retire les deux joueurs sélectionnés de la liste
             teams.add(new Team(selectedPlayers, i));

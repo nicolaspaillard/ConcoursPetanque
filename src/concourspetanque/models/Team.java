@@ -13,9 +13,7 @@ import java.util.List;
  */
 public class Team {//simples doublettes triplettes
     private List<Player> players = new ArrayList<>();
-    private int victories = 0;
-    private int loses = 0;
-    private int position = 0;
+
     private int id;
 
     public Team(List<Player> players, int id) {
@@ -26,23 +24,10 @@ public class Team {//simples doublettes triplettes
     public List<Player> getPlayers() {
         return players;
     }
-    public int getVictories(){
-        return this.victories;
-    }
-    public int getLoses(){
-        return this.loses;
-    }
-
     public void addPlayer(Player player) {
         this.players.add(player);
-    }    
-    public void addVictory(){
-        this.victories++;
-    }
-    public void addLoss(){
-        this.loses++;
-    }
-
+    }   
+    
     public int getId() {
         return id;
     }

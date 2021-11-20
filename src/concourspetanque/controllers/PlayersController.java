@@ -19,16 +19,10 @@ public class PlayersController {
     public List<Player> getPlayers() {
         return players;
     }
-    // public void setPlayers(List<Player> players) {
-    //     this.players = players;
-    // }
 
     public int getPlayersCount() {
         return playersCount;
     }
-    // public void setPlayersCount(int playersCount) {
-    //     this.playersCount = playersCount;
-    // }
 
     private List<Player> generatePlayers() {
         // Generate a random number of players
