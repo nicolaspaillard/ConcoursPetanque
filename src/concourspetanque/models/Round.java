@@ -11,10 +11,10 @@ public class Round {
     }
     public Round() {}
 
-    public int getGamesCount() {
+    public int getMatchesCount() {
         return gamesTeamsNumbers.size();
     }
-    public int[] getTeamsNumbersOfGame(int index) {
+    public int[] getTeamsNumbersOfMatch(int index) {
         return gamesTeamsNumbers.get(index);
     }
 }

@@ -2,13 +2,13 @@ package concourspetanque.models;
 
 import concourspetanque.controllers.tools.RandomGenerators;
 
-public class Match {
+public class MatchScore {
     private Team team1;
     private Team team2;
     private int score1 = 0;
     private int score2 = 0;
 
-    public Match(Team team1, Team team2) {
+    public MatchScore(Team team1, Team team2) {
         this.team1 = team1;
         this.team2 = team2;
         this.score1 = RandomGenerators.generateNumberBetween(0, 13);
