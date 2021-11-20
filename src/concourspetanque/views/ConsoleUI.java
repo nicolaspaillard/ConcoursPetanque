@@ -4,7 +4,6 @@ import concourspetanque.controllers.MatchesController;
 import concourspetanque.controllers.PlayersController;
 import concourspetanque.controllers.TeamsController;
 import concourspetanque.models.Match;
-import concourspetanque.models.Team;
 import concourspetanque.models.TeamScore;
 
 import java.util.List;
@@ -26,5 +25,6 @@ public class ConsoleUI {
             i++;
         }            
         teamsScores.forEach(ts -> System.out.println("Equipe " + ts.getId() + "\tVictoires : " + ts.getVictories() + " - Défaites : " + ts.getLoses()));
+        teamsScores.forEach(ts -> System.out.println("Equipe " + ts.getId() + "\tScore : " + ts.getScore()));
     }
 }

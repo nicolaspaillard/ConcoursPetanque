@@ -40,7 +40,9 @@ public class MatchesController {
                 int[] teamsNumbers = round.getTeamsNumbersOfGame(i);
                 matches.add(new Match(teamsScores.get(teamsNumbers[0]-1), teamsScores.get(teamsNumbers[1]-1)));
                 teamsScores.get(teamsScores.indexOf(matches.get(matches.size()-1).getWinner())).addVictory();
+                teamsScores.get(teamsScores.indexOf(matches.get(matches.size()-1).getWinner())).addWin();
                 teamsScores.get(teamsScores.indexOf(matches.get(matches.size()-1).getLooser())).addLoss();
+                teamsScores.get(teamsScores.indexOf(matches.get(matches.size()-1).getLooser())).removeWin();
             }            
         }
     }  
