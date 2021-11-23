@@ -36,6 +36,9 @@ public class GameController {
         }
     }  
 
+    /** 
+     * Call this method to start in league game mode.
+     */
     private void playLeague(){
         switch (teamsScores.size()) {
             case 6:
@@ -53,43 +56,56 @@ public class GameController {
         }
     }
 
+    /** 
+     * Call this method to start in championship game mode.
+     */
     private void playChampionship() {
         while (teams.size() > 1) {
-            teams = playRounds(Arrays.asList(getRound(teams)));
+            playRounds(Arrays.asList(getRound(teams)));
         }
     }
 
-    private List<Team> playRounds(List<Round> rounds){
-        List<Team> winners = new ArrayList<Team>();
+    /** 
+     * @param rounds : The list of rounds (lists of matches) to be played
+     */
+    private void playRounds(List<Round> rounds){
+        teams = new ArrayList<Team>();
         for (Round round : rounds) {
             for (int i = 0; i < round.getMatchesCount(); i++) {
                 int[] teamsNumbers = round.getTeamsNumbersOfMatch(i);
-                winners.add(updateTeamsScore(teamsNumbers));
+                teams.add(updateTeamsScore(teamsNumbers));
             }            
         }
-        return winners;
     } 
 
-    public Round getRound(List<Team> teams){
+    /** 
+     * @param tempTeams : A temporary list of teams for the method to use
+     * @return Round : An object to store all matches opponents ids for a round
+     */
+    public Round getRound(List<Team> tempTeams){
         List<int[]> ret = new ArrayList<int[]>();
-        while(teams.size()>0) {
+        while(tempTeams.size()>0) {
             int[] opponents = {0,0};
-            int opponent0 = RandomGenerators.generateNumberBetween(1, teams.size());
-            opponents[0] = teams.get(opponent0-1).getId();
-            teams.remove(opponent0-1);
-            int opponent1 = RandomGenerators.generateNumberBetween(1, teams.size());
-            opponents[1] = teams.get(opponent1-1).getId();
-            teams.remove(opponent1-1);
+            int opponent0 = RandomGenerators.generateNumberBetween(1, tempTeams.size());
+            opponents[0] = tempTeams.get(opponent0-1).getId();
+            tempTeams.remove(opponent0-1);
+            int opponent1 = RandomGenerators.generateNumberBetween(1, tempTeams.size());
+            opponents[1] = tempTeams.get(opponent1-1).getId();
+            tempTeams.remove(opponent1-1);
             ret.add(opponents);
         }
         return new Round(ret);
     } 
 
-    private Team updateTeamsScore(int[] teamsNumbers) {
-        MatchScore lastMatch = new MatchScore(teamsScores.get(teamsNumbers[0]-1), teamsScores.get(teamsNumbers[1]-1));
-        matchesScores.add(lastMatch);
-        TeamScore lastWinner = teamsScores.get(teamsScores.indexOf(lastMatch.getWinner()));
-        TeamScore lastLooser = teamsScores.get(teamsScores.indexOf(lastMatch.getLooser()));
+    /** 
+     * @param teamsNumbers : An array containing the id of both opponents teams
+     * @return Team : The winning team
+     */
+    private Team updateTeamsScore(int[] teamsNumbers) {//ça merde ptetre un peu la dedans ( teamsScores.get(teamsNumbers[1]-1) ne récupère pas la donnée voulue mais ça se voit pas)
+        MatchScore matchScore = new MatchScore(teamsScores.get(teamsNumbers[0]-1), teamsScores.get(teamsNumbers[1]-1));
+        matchesScores.add(matchScore);
+        TeamScore lastWinner = teamsScores.get(teamsScores.indexOf(matchScore.getWinner()));
+        TeamScore lastLooser = teamsScores.get(teamsScores.indexOf(matchScore.getLooser()));
         lastWinner.addVictory();
         lastWinner.addWin();
         lastLooser.addLoss();
@@ -97,10 +113,16 @@ public class GameController {
         return lastWinner;
     }
 
+    /** 
+     * @return List<MatchScore> : A list containing all matches that have been played
+     */
     public List<MatchScore> getMatchesScores() {
         return matchesScores;
     }
 
+    /** 
+     * @return List<TeamScore> : A list containing all teams with their cumulative score
+     */
     public List<TeamScore> getTeamsScores(){
         return teamsScores;
     }

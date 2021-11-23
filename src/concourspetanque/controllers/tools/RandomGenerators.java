@@ -21,7 +21,9 @@ public class RandomGenerators {
     }
 
     public static int generateNumberBetween(int min, int max) {
-        if(max-min==0){
+        if(max == 0){
+            throw new Error("Erreur : paramètre \"max\" incorrect dans la fonction generateNumberBetween("+min+","+max+")");
+        }else if(max-min==0){
             return min;
         }else{
             return rand.nextInt(max-min) + min;

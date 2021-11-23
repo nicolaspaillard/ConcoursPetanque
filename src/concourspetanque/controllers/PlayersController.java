@@ -8,21 +8,33 @@ import concourspetanque.models.GameMode;
 import concourspetanque.models.Player;
 
 public class PlayersController {
-    private List<Player> players;
+    private List<Player> players = new ArrayList<Player>();
 
     public PlayersController(GameMode gameMode) {
-        this.players = generatePlayers(gameMode);
+        generatePlayers(gameMode);
     }
     
+    
+    /** 
+     * @return List<Player> : A list containing all the players
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    
+    /** 
+     * @return int : The quantity of players in the object
+     */
     public int getPlayersCount() {
         return this.players.size();
     }
 
-    private List<Player> generatePlayers(GameMode gameMode) {
+    
+    /** 
+     * @param gameMode : Defines the ranges and amounts of players to generate  
+     */
+    private void generatePlayers(GameMode gameMode) {
         // Generate a random number of players
         int numberOfPlayers = 0;
         switch (gameMode) {
@@ -49,12 +61,9 @@ public class PlayersController {
                 }
                 break;
         }
-        
-        List<Player> players = new ArrayList<>();
         for (int i = 0 ; i < numberOfPlayers ; i++) {
             Player newPlayer = new Player(RandomGenerators.generateName(), RandomGenerators.generateName(), RandomGenerators.generateNumberBetween(18, 99), i);
             players.add(newPlayer);
         }
-        return players;
     }
 }
