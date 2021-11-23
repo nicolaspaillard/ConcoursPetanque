@@ -1,21 +1,16 @@
 package concourspetanque.views;
 
 import concourspetanque.controllers.GameController;
-import concourspetanque.controllers.PlayersController;
-import concourspetanque.controllers.TeamsController;
 import concourspetanque.models.MatchScore;
 import concourspetanque.models.TeamScore;
+import concourspetanque.models.GameMode;
 
 import java.util.List;
 
 public class ConsoleUI {
     public void start() {
-        PlayersController playersController = new PlayersController();
-
-        TeamsController teamsController = new TeamsController(playersController.getPlayers());
-
-        GameController gameController = new GameController(teamsController.getTeams(), 1);
-
+        GameController gameController = new GameController(GameMode.CHAMPIONSHIP);
+        
         List<MatchScore> matches = gameController.getMatchesScores();
         List<TeamScore> teamsScores = gameController.getTeamsScores();
 

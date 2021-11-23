@@ -4,54 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 import concourspetanque.controllers.tools.RandomGenerators;
+import concourspetanque.models.GameMode;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
 
 public class TeamsController {
-    private List<Team> teams;
-    
-    public TeamsController(List<Player> players) {
-        this.teams = generateTeams(players);
-    }
+    private PlayersController playersController;
+    private List<Team> teams= new ArrayList<Team>();   
 
-    public List<Team> getTeams() {
-        return teams;
-    }
+    public TeamsController(GameMode gameMode) {
+        playersController = new PlayersController(gameMode);
+        List<Player> players = playersController.getPlayers();
 
-    private List<Team> generateTeams(List<Player> players){
-        List<Team> teams = new ArrayList<>();
-        if(players.size()<16){
-            //12 - 15 joueurs -> 6 teams
-            teams = addPlayers(players, 6);
-        }else if(players.size()<20){
-            //16 - 19 joueurs -> 8 teams
-            teams = addPlayers(players, 8);
-        }else if(players.size()<24){
-            //20 - 23 joueurs -> 10 teams
-            teams = addPlayers(players, 10);
-        }else {
-            //24 joueurs ou plus -> 12 teams
-            teams = addPlayers(players, 12);                
+        int[] parameters = (gameMode == GameMode.LEAGUE ? new int[]{16,6,20,8,24,10,48,12} : new int[]{7,2,13,4,25,8,49,16});
+        for (int i = 0; i < 7; i+=2) {
+            if(players.size()<parameters[i]){
+                //4 - 6 joueurs -> 2 teams
+                createTeams(players, parameters[i+1]);
+                break;
+            }
         }
-        return teams;       
     }
-
-    private List<Team> addPlayers(List<Player> players, int teamsCount){
-        List<Team> teams = new ArrayList<>();
+    
+    private void createTeams(List<Player> players, int teamsCount){
         // Constitue les équipes avec 2 joueurs aléatoires
-        for (int i = 1; i < teamsCount+1; i++) {
-            List<Player> selectedPlayers = selectPlayers(players);
+        for (int i = 1; i < teamsCount+1; i++) { // +1 pour que la 1ere team ait le numéro 1 et non 0
+            List<Player> selectedPlayers = addPlayers(players);
             selectedPlayers.forEach(p -> players.remove(p)); // Retire les deux joueurs sélectionnés de la liste
             teams.add(new Team(selectedPlayers, i));
         }
         // S'il reste des joueurs, les ajoute a des équipes aléatoires
         if (players.size()>0) {
-            teams = addRemainingPlayers(players, teams);
+            addRemainingPlayers(players, teams);
         }
-        return teams;
     }
 
-    private List<Player> selectPlayers(List<Player> players) {
+    private List<Player> addPlayers(List<Player> players) {
         List<Player> selectedPlayers = new ArrayList<>();
         // Sélectionne 2 joueurs aléatoires et les ajoute à l'équipe
         for (int i = 0; i < 2; i++) {
@@ -62,7 +50,7 @@ public class TeamsController {
         return selectedPlayers;
     }
 
-    private List<Team> addRemainingPlayers(List<Player> remainingPlayers, List<Team> teams){
+    private void addRemainingPlayers(List<Player> remainingPlayers, List<Team> teams){
         // Tant qu'il reste des joueurs, boucler pour les caser dans des équipes aléatoires de 2 joueurs
         while (remainingPlayers.size() > 0) {
             int randomTeam = RandomGenerators.generateNumberBetween(0, teams.size());
@@ -73,6 +61,9 @@ public class TeamsController {
             teams.get(randomTeam).addPlayer(remainingPlayers.get(0));
             remainingPlayers.remove(remainingPlayers.get(0));
         }
+    }
+
+    public List<Team> getTeams() {
         return teams;
     }
 }
