@@ -14,10 +14,10 @@ public class ConsoleUI {
 
         TeamsController teamsController = new TeamsController(playersController.getPlayers());
 
-        GameController matchesController = new GameController(teamsController.getTeams());
+        GameController gameController = new GameController(teamsController.getTeams(), 1);
 
-        List<MatchScore> matches = matchesController.getMatchesScores();
-        List<TeamScore> teamsScores = matchesController.getTeamsScores();
+        List<MatchScore> matches = gameController.getMatchesScores();
+        List<TeamScore> teamsScores = gameController.getTeamsScores();
 
         int i = 1;
         for (MatchScore m : matches) {

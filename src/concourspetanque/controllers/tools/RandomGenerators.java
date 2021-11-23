@@ -21,7 +21,11 @@ public class RandomGenerators {
     }
 
     public static int generateNumberBetween(int min, int max) {
-        return rand.nextInt(max-min) + min;
+        if(max-min==0){
+            return min;
+        }else{
+            return rand.nextInt(max-min) + min;
+        }        
     }
 }
 
