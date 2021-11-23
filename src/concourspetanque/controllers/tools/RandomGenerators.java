@@ -5,6 +5,9 @@ import java.util.Random;
 public class RandomGenerators {
     private static Random rand = new Random();
     
+    /** 
+     * @return String
+     */
     public static String generateName() {
         String[] Beginning = { "Kr", "Ca", "Ra", "Mrok", "Cru",
             "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol",
@@ -20,6 +23,11 @@ public class RandomGenerators {
             End[rand.nextInt(End.length)];
     }
 
+    /** 
+     * @param min
+     * @param max
+     * @return int
+     */
     public static int generateNumberBetween(int min, int max) {
         if(max == 0){
             throw new Error("Erreur : paramètre \"max\" incorrect dans la fonction generateNumberBetween("+min+","+max+")");
