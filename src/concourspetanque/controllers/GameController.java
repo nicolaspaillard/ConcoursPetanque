@@ -19,13 +19,15 @@ import concourspetanque.models.RoundsDraws.TwelveTeamsRounds;
 public class GameController {
     private TeamsController teamsController;
     private List<Team> teams;
+    private GameMode gameMode;
     private List<MatchScore> matchesScores = new ArrayList<MatchScore>();
     private List<TeamScore> teamsScores = new ArrayList<TeamScore>();
 
     public GameController(GameMode gameMode) {
-        this.teamsController = new TeamsController(gameMode);        
-        this.teams = this.teamsController.getTeams();
-        this.teams.forEach(t -> teamsScores.add(new TeamScore(t)) );
+        this.gameMode = gameMode;
+        this.teamsController = new TeamsController(gameMode);
+        if(gameMode == GameMode.CHAMPIONSHIP)this.teams = this.teamsController.getTeams();
+        this.teamsController.getTeams().forEach(t -> teamsScores.add(new TeamScore(t)) );
         switch (gameMode) {
             case LEAGUE:      
                 playLeague();
@@ -69,11 +71,11 @@ public class GameController {
      * @param rounds : The list of rounds (lists of matches) to be played
      */
     private void playRounds(List<Round> rounds){
-        teams = new ArrayList<Team>();
+        if(gameMode == GameMode.CHAMPIONSHIP)teams = new ArrayList<Team>();
         for (Round round : rounds) {
             for (int i = 0; i < round.getMatchesCount(); i++) {
                 int[] teamsNumbers = round.getTeamsNumbersOfMatch(i);
-                teams.add(updateTeamsScore(teamsNumbers));
+                if(gameMode == GameMode.CHAMPIONSHIP)teams.add(updateTeamsScore(teamsNumbers));
             }            
         }
     } 
