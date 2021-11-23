@@ -79,12 +79,12 @@ public class GameController {
     } 
 
     /** 
-     * While there are teams in the tempTeams<p>
-     * Randomly selects 2 teams in the temporary list<p>
-     * Removes them from the list<p>
-     * Add their match to the round
+     * While there are teams in the tempTeams list,
+     * randomly selects 2,
+     * removes them from it and
+     * add their match to the round
      * @param tempTeams : A temporary list of teams for the method to use
-     * @return Round : An object to store all matches opponents ids for a round
+     * @return Round : An object that stores all opponents ids for each match of a round
      */
     public Round getRound(List<Team> tempTeams){
         List<int[]> ret = new ArrayList<int[]>();
