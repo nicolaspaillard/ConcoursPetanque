@@ -79,13 +79,18 @@ public class GameController {
     } 
 
     /** 
+     * While there are teams in the tempTeams<p>
+     * Randomly selects 2 teams in the temporary list<p>
+     * Removes them from the list<p>
+     * Add their match to the round
      * @param tempTeams : A temporary list of teams for the method to use
      * @return Round : An object to store all matches opponents ids for a round
      */
     public Round getRound(List<Team> tempTeams){
         List<int[]> ret = new ArrayList<int[]>();
+        // Loops while there are teams to match in the tempTeams list 
         while(tempTeams.size()>0) {
-            int[] opponents = {0,0};
+            int[] opponents = {0,0};// Must init ?
             int opponent0 = RandomGenerators.generateNumberBetween(1, tempTeams.size());
             opponents[0] = tempTeams.get(opponent0-1).getId();
             tempTeams.remove(opponent0-1);
