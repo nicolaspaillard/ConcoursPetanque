@@ -14,7 +14,6 @@ public class PlayersController {
         generatePlayers(gameMode);
     }
     
-    
     /** 
      * @return List<Player> : A list containing all the players
      */
@@ -22,7 +21,6 @@ public class PlayersController {
         return players;
     }
 
-    
     /** 
      * @return int : The quantity of players in the object
      */
@@ -30,7 +28,6 @@ public class PlayersController {
         return this.players.size();
     }
 
-    
     /** 
      * @param gameMode : Defines the ranges and amounts of players to generate  
      */
