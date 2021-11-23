@@ -21,5 +21,22 @@ public class ConsoleUI {
         }            
         teamsScores.forEach(ts -> System.out.println("Equipe " + ts.getId() + "\tVictoires : " + ts.getVictories() + " - Défaites : " + ts.getLoses()));
         teamsScores.forEach(ts -> System.out.println("Equipe " + ts.getId() + "\tScore : " + ts.getScore()));
+        printTree(matches, teamsScores);
+    }
+
+    public void printTree(List<MatchScore> matches, List<TeamScore> teams) {
+        int it = 2;
+        while (matches.size()>0) {
+            for (int i = 0; i < teams.size()/it; i++) {
+                if(matches.size()==1){
+                    System.out.println(matches.get(i).getWinner());
+                }else{
+                    System.out.print(matches.get(i).getWinner()+" vs "+matches.get(i).getLooser()+"\t");
+                }
+                matches.remove(i);
+            }
+            it = it*2;
+            System.out.println();
+        }
     }
 }

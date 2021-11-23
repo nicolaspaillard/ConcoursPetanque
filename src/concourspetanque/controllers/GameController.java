@@ -109,6 +109,7 @@ public class GameController {
      * @return Team : The winning team
      */
     private Team updateTeamsScore(int[] teamsNumbers) {//ça merde ptetre un peu la dedans ( teamsScores.get(teamsNumbers[1]-1) ne récupère pas la donnée voulue mais ça se voit pas)
+        //100% CA MERDE LA DEDANS et la desuite flemme
         MatchScore matchScore = new MatchScore(teamsScores.get(teamsNumbers[0]-1), teamsScores.get(teamsNumbers[1]-1));
         matchesScores.add(matchScore);
         TeamScore lastWinner = teamsScores.get(teamsScores.indexOf(matchScore.getWinner()));

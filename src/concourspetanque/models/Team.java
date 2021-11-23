@@ -26,7 +26,7 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Team "+ (id+1) + " [players=" + players + "]";
+        return "Team "+ (id);
     }
     
 }
