@@ -16,6 +16,7 @@ public class TeamsController {
         playersController = new PlayersController(gameMode);
         List<Player> players = playersController.getPlayers();
 
+        // Compliqué à expliquer... for + tableau = if ... else if ... else if (quand identiques à 1 param)
         int[] parameters = (gameMode == GameMode.LEAGUE ? new int[]{16,6,20,8,24,10,48,12} : new int[]{7,2,13,4,25,8,49,16});
         for (int i = 0; i < 7; i+=2) {
             if(players.size()<parameters[i]){
