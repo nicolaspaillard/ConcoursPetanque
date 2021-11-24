@@ -6,10 +6,8 @@ import java.util.List;
 
 import concourspetanque.controllers.tools.RandomGenerators;
 import concourspetanque.models.GameMode;
-import concourspetanque.models.MatchScore;
 import concourspetanque.models.Round;
 import concourspetanque.models.Team;
-import concourspetanque.models.TeamScore;
 import concourspetanque.models.RoundsDraws.EightTeamsRounds;
 import concourspetanque.models.RoundsDraws.SixTeamsRounds;
 import concourspetanque.models.RoundsDraws.TenTeamsRounds;
@@ -17,17 +15,13 @@ import concourspetanque.models.RoundsDraws.TwelveTeamsRounds;
 
 
 public class GameController {
+    private ScoresController scoresController;
     private TeamsController teamsController;
-    private List<Team> teams;
-    private GameMode gameMode;
-    private List<MatchScore> matchesScores = new ArrayList<MatchScore>();
-    private List<TeamScore> teamsScores = new ArrayList<TeamScore>();
 
     public GameController(GameMode gameMode) {
-        this.gameMode = gameMode;
         this.teamsController = new TeamsController(gameMode);
-        if(gameMode == GameMode.CHAMPIONSHIP)this.teams = this.teamsController.getTeams();
-        this.teamsController.getTeams().forEach(t -> teamsScores.add(new TeamScore(t)) );
+        this.scoresController = new ScoresController(this.teamsController.getTeams());
+
         switch (gameMode) {
             case LEAGUE:      
                 playLeague();
@@ -42,7 +36,7 @@ public class GameController {
      * Call this method to start in league game mode.
      */
     private void playLeague(){
-        switch (teamsScores.size()) {
+        switch (teamsController.getTeams().size()) {
             case 6:
                 playRounds(SixTeamsRounds.getRounds());          
                 break;
@@ -62,22 +56,24 @@ public class GameController {
      * Call this method to start in championship game mode.
      */
     private void playChampionship() {
+        List<Team> teams = teamsController.getTeams(); 
         while (teams.size() > 1) {
-            playRounds(Arrays.asList(getRound(teams)));
+            teams = playRounds(Arrays.asList(getRound(teams)));
         }
     }
 
     /** 
      * @param rounds : The list of rounds (lists of matches) to be played
      */
-    private void playRounds(List<Round> rounds){
-        if(gameMode == GameMode.CHAMPIONSHIP)teams = new ArrayList<Team>();
+    private List<Team> playRounds(List<Round> rounds){
+        List<Team> teams = new ArrayList<Team>();
         for (Round round : rounds) {
             for (int i = 0; i < round.getMatchesCount(); i++) {
-                int[] teamsNumbers = round.getTeamsNumbersOfMatch(i);
-                if(gameMode == GameMode.CHAMPIONSHIP)teams.add(updateTeamsScore(teamsNumbers));
+                int[] teamsIDs = round.getTeamsIDsOfMatch(i);
+                teams.add(getMatchWinner(teamsIDs[0], teamsIDs[1]));
             }            
         }
+        return teams;
     } 
 
     /** 
@@ -88,7 +84,7 @@ public class GameController {
      * @param tempTeams : A temporary list of teams for the method to use
      * @return Round : An object that stores all opponents ids for each match of a round
      */
-    public Round getRound(List<Team> tempTeams){
+    private Round getRound(List<Team> tempTeams){
         List<int[]> ret = new ArrayList<int[]>();
         // Loops while there are teams to match in the tempTeams list 
         while(tempTeams.size()>0) {
@@ -108,30 +104,12 @@ public class GameController {
      * @param teamsNumbers : An array containing the id of both opponents teams
      * @return Team : The winning team
      */
-    private Team updateTeamsScore(int[] teamsNumbers) {//ça merde ptetre un peu la dedans ( teamsScores.get(teamsNumbers[1]-1) ne récupère pas la donnée voulue mais ça se voit pas)
-        //100% CA MERDE LA DEDANS et la desuite flemme
-        MatchScore matchScore = new MatchScore(teamsScores.get(teamsNumbers[0]-1), teamsScores.get(teamsNumbers[1]-1));
-        matchesScores.add(matchScore);
-        TeamScore lastWinner = teamsScores.get(teamsScores.indexOf(matchScore.getWinner()));
-        TeamScore lastLooser = teamsScores.get(teamsScores.indexOf(matchScore.getLooser()));
-        lastWinner.addVictory();
-        lastWinner.addWin();
-        lastLooser.addLoss();
-        lastLooser.removeWin();
-        return lastWinner;
+    private Team getMatchWinner(int teamID1, int teamID2) {
+        int winner = scoresController.addMatch(teamID1, teamID2);        
+        return teamsController.getTeam(winner);
     }
 
-    /** 
-     * @return List<MatchScore> : A list containing all matches that have been played
-     */
-    public List<MatchScore> getMatchesScores() {
-        return matchesScores;
-    }
-
-    /** 
-     * @return List<TeamScore> : A list containing all teams with their cumulative score
-     */
-    public List<TeamScore> getTeamsScores(){
-        return teamsScores;
+    public ScoresController getScores(){
+        return scoresController;
     }
 }

@@ -1,42 +1,19 @@
 package concourspetanque.views;
 
+import java.util.List;
+
 import concourspetanque.controllers.GameController;
+import concourspetanque.controllers.ScoresController;
+import concourspetanque.models.GameMode;
 import concourspetanque.models.MatchScore;
 import concourspetanque.models.TeamScore;
-import concourspetanque.models.GameMode;
-
-import java.util.List;
 
 public class ConsoleUI {
     public void start() {
-        GameController gameController = new GameController(GameMode.CHAMPIONSHIP);
         
-        List<MatchScore> matches = gameController.getMatchesScores();
-        List<TeamScore> teamsScores = gameController.getTeamsScores();
-
-        int i = 1;
-        for (MatchScore m : matches) {
-            System.out.println("Match " + i + " \tEquipe " + m.getTeam1().getId() + " : " + m.getScore1() + " Points\tEquipe " + m.getTeam2().getId() + " : " + m.getScore2() + " Points\tVainqueur : Equipe " + m.getWinner().getId());
-            i++;
-        }            
-        teamsScores.forEach(ts -> System.out.println("Equipe " + ts.getId() + "\tVictoires : " + ts.getVictories() + " - Défaites : " + ts.getLoses()));
-        teamsScores.forEach(ts -> System.out.println("Equipe " + ts.getId() + "\tScore : " + ts.getScore()));
-        printTree(matches, teamsScores);
-    }
-
-    public void printTree(List<MatchScore> matches, List<TeamScore> teams) {
-        int it = 2;
-        while (matches.size()>0) {
-            for (int i = 0; i < teams.size()/it; i++) {
-                if(matches.size()==1){
-                    System.out.println(matches.get(i).getWinner());
-                }else{
-                    System.out.print(matches.get(i).getWinner()+" vs "+matches.get(i).getLooser()+"\t");
-                }
-                matches.remove(i);
-            }
-            it = it*2;
-            System.out.println();
-        }
+        GameController gameController = new GameController(GameMode.CHAMPIONSHIP);
+        ScoresController scoresController = gameController.getScores();
+        List<MatchScore> matchScores = scoresController.getMatchesScores();
+        List<TeamScore> teamScores = scoresController.getTeamsScores();
     }
 }

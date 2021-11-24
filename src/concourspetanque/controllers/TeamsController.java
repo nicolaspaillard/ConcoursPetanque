@@ -32,7 +32,7 @@ public class TeamsController {
      */
     private void addPlayers(List<Player> tempPlayers, int teamsCount){
         // Effectue une boucle par équipe : teamsCount
-        for (int i = 1; i < teamsCount+1; i++) { // teamsCount+1 pour que la 1ere team ait le numéro 1 et non 0
+        for (int i = 1; i < teamsCount+1; i++) { // i = 1; i < teamsCount+1 pour que la 1ere team ait le numéro 1 et non 0
             List<Player> selectedPlayers = new ArrayList<>();// Equipe temporaire 
             // Effectue une boucle par joueur : 2
             for (int j = 0; j < 2; j++) {
@@ -74,5 +74,8 @@ public class TeamsController {
      */
     public List<Team> getTeams() {
         return teams;
+    }
+    public Team getTeam(int teamID){
+        return teams.get(teamID-1);
     }
 }
