@@ -12,7 +12,7 @@ import concourspetanque.models.scores.TeamScore;
 public class ConsoleUI {
     public void start() {
         
-        GameController gameController = new GameController(GameMode.LEAGUE);
+        GameController gameController = new GameController(GameMode.CHAMPIONSHIP);
         ScoresController scoresController = gameController.getScores();
 
         List<RoundScores> roundsScores = scoresController.getRoundsScores();
