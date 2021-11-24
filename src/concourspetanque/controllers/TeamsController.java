@@ -10,10 +10,11 @@ import concourspetanque.models.Team;
 
 public class TeamsController {
     private PlayersController playersController;
-    private List<Team> teams= new ArrayList<Team>();   
+    private final List<Team> teams;   
 
     public TeamsController(GameMode gameMode) {
         playersController = new PlayersController(gameMode);
+        teams = new ArrayList<Team>();
         List<Player> players = playersController.getPlayers();
 
         // Compliqué à expliquer... for + tableau = if ... else if ... else if (quand identiques à 1 param)
@@ -25,6 +26,17 @@ public class TeamsController {
             }
         }
     }
+
+    /** 
+     * @return List<Team> : Returns the list of all teams in that instance
+     */
+    public List<Team> getTeams() {
+        return this.teams;
+    }
+
+    public Team getTeam(int teamID) {
+        return this.teams.get(teamID);
+    }
         
     /** 
      * @param tempPlayers : A local temporary list of players
@@ -32,7 +44,7 @@ public class TeamsController {
      */
     private void addPlayers(List<Player> tempPlayers, int teamsCount){
         // Effectue une boucle par équipe : teamsCount
-        for (int i = 1; i < teamsCount+1; i++) { // i = 1; i < teamsCount+1 pour que la 1ere team ait le numéro 1 et non 0
+        for (int i = 0; i < teamsCount; i++) { // i = 1; i < teamsCount+1 pour que la 1ere team ait le numéro 1 et non 0
             List<Player> selectedPlayers = new ArrayList<>();// Equipe temporaire 
             // Effectue une boucle par joueur : 2
             for (int j = 0; j < 2; j++) {
@@ -67,15 +79,5 @@ public class TeamsController {
             // Retire le joueur de la liste des joueurs restants
             remainingPlayers.remove(remainingPlayers.get(0));
         }
-    }
-
-    /** 
-     * @return List<Team> : Returns the list of all teams in that instance
-     */
-    public List<Team> getTeams() {
-        return teams;
-    }
-    public Team getTeam(int teamID){
-        return teams.get(teamID-1);
     }
 }

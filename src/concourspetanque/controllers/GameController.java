@@ -8,10 +8,10 @@ import concourspetanque.controllers.tools.RandomGenerators;
 import concourspetanque.models.GameMode;
 import concourspetanque.models.Round;
 import concourspetanque.models.Team;
-import concourspetanque.models.RoundsDraws.EightTeamsRounds;
-import concourspetanque.models.RoundsDraws.SixTeamsRounds;
-import concourspetanque.models.RoundsDraws.TenTeamsRounds;
-import concourspetanque.models.RoundsDraws.TwelveTeamsRounds;
+import concourspetanque.models.rounds.EightTeamsRounds;
+import concourspetanque.models.rounds.SixTeamsRounds;
+import concourspetanque.models.rounds.TenTeamsRounds;
+import concourspetanque.models.rounds.TwelveTeamsRounds;
 
 
 public class GameController {
@@ -38,16 +38,16 @@ public class GameController {
     private void playLeague(){
         switch (teamsController.getTeams().size()) {
             case 6:
-                playRounds(SixTeamsRounds.getRounds());          
+                playRounds(SixTeamsRounds.getRounds(),-1);          
                 break;
             case 8:
-                playRounds(EightTeamsRounds.getRounds());
+                playRounds(EightTeamsRounds.getRounds(),-1);
                 break;
             case 10:
-                playRounds(TenTeamsRounds.getRounds());
+                playRounds(TenTeamsRounds.getRounds(),-1);
                 break;
             case 12:
-                playRounds(TwelveTeamsRounds.getRounds());
+                playRounds(TwelveTeamsRounds.getRounds(),-1);
                 break;
         }
     }
@@ -56,22 +56,28 @@ public class GameController {
      * Call this method to start in championship game mode.
      */
     private void playChampionship() {
-        List<Team> teams = teamsController.getTeams(); 
+        List<Team> teams = new ArrayList<Team>(teamsController.getTeams());
+        int roundNumber = 0;
         while (teams.size() > 1) {
-            teams = playRounds(Arrays.asList(getRound(teams)));
+            teams = playRounds(Arrays.asList(getRound(teams)), roundNumber);
+            roundNumber++;
         }
     }
 
     /** 
      * @param rounds : The list of rounds (lists of matches) to be played
      */
-    private List<Team> playRounds(List<Round> rounds){
+    private List<Team> playRounds(List<Round> rounds, int roundNumber){
         List<Team> teams = new ArrayList<Team>();
-        for (Round round : rounds) {
-            for (int i = 0; i < round.getMatchesCount(); i++) {
-                int[] teamsIDs = round.getTeamsIDsOfMatch(i);
-                teams.add(getMatchWinner(teamsIDs[0], teamsIDs[1]));
-            }            
+        for (int i = 0; i < rounds.size(); i++) {
+            for (int j = 0; j< rounds.get(i).getMatchesCount(); j++) {
+                int[] teamsIDs = rounds.get(i).getTeamsIDsOfMatch(j);
+                if(roundNumber == -1){
+                    teams.add(getMatchWinner(teamsIDs[0]-1, teamsIDs[1]-1, i));//
+                }else{
+                    teams.add(getMatchWinner(teamsIDs[0], teamsIDs[1], roundNumber));
+                }                
+            }
         }
         return teams;
     } 
@@ -89,12 +95,11 @@ public class GameController {
         // Loops while there are teams to match in the tempTeams list 
         while(tempTeams.size()>0) {
             int[] opponents = {0,0};// Must init ?
-            int opponent0 = RandomGenerators.generateNumberBetween(1, tempTeams.size());
-            opponents[0] = tempTeams.get(opponent0-1).getId();
-            tempTeams.remove(opponent0-1);
-            int opponent1 = RandomGenerators.generateNumberBetween(1, tempTeams.size());
-            opponents[1] = tempTeams.get(opponent1-1).getId();
-            tempTeams.remove(opponent1-1);
+            for (int i = 0; i < 2; i++) {
+                int team = RandomGenerators.generateNumberBetween(0, tempTeams.size()-1);
+                opponents[i] = tempTeams.get(team).getId();
+                tempTeams.remove(team);
+            }
             ret.add(opponents);
         }
         return new Round(ret);
@@ -104,9 +109,9 @@ public class GameController {
      * @param teamsNumbers : An array containing the id of both opponents teams
      * @return Team : The winning team
      */
-    private Team getMatchWinner(int teamID1, int teamID2) {
-        int winner = scoresController.addMatch(teamID1, teamID2);        
-        return teamsController.getTeam(winner);
+    private Team getMatchWinner(int teamID1, int teamID2, int roundNumber) {
+        int winnerID = scoresController.addMatch(teamID1, teamID2, roundNumber);        
+        return this.teamsController.getTeam(winnerID);
     }
 
     public ScoresController getScores(){

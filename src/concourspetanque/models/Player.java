@@ -47,6 +47,6 @@ public class Player {
     }
     @Override
     public String toString() {
-        return "(" + (this.id + 1) + ") " + this.firstName + " " + this.lastName + " " + this.age + "ans";
+        return "N°" + (this.id + 1) +" - "+ this.firstName + " " + this.lastName + " " + this.age + " ans";
     }
 }

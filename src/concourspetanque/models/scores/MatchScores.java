@@ -1,14 +1,15 @@
-package concourspetanque.models;
+package concourspetanque.models.scores;
 
 import concourspetanque.controllers.tools.RandomGenerators;
+import concourspetanque.models.Team;
 
-public class MatchScore {
+public class MatchScores {
     private Team team1;
     private Team team2;
     private int score1 = 0;
     private int score2 = 0;
 
-    public MatchScore(Team team1, Team team2) {
+    public MatchScores(Team team1, Team team2) {
         this.team1 = team1;
         this.team2 = team2;
         this.score1 = RandomGenerators.generateNumberBetween(0, 13);
@@ -42,11 +43,8 @@ public class MatchScore {
 
     @Override
     public String toString() {
-        return "Match{" +
-                "Team " + team1.getId() + " = " + score1 +
-                " - Team " + team2.getId() + " = " + score2 +
-                " - Winner : Team " + getWinner().getId() +
-                '}';
+        return "MatchScores [" + team1 + "," + team2 + "]";
     }
+
 }
 

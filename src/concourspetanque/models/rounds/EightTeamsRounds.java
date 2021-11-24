@@ -1,4 +1,4 @@
-package concourspetanque.models.RoundsDraws;
+package concourspetanque.models.rounds;
 
 import java.util.Arrays;
 import java.util.List;

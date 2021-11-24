@@ -29,8 +29,11 @@ public class RandomGenerators {
      * @return int
      */
     public static int generateNumberBetween(int min, int max) {
-        if(max == 0){
-            throw new Error("Erreur : paramètre \"max\" incorrect dans la fonction generateNumberBetween("+min+","+max+")");
+        // if(max == 0 && min > 0){
+        //     throw new Error("Erreur : paramètre \"max\" incorrect dans la fonction generateNumberBetween("+min+","+max+")");
+        // }else 
+        if(min == 0 && max == 0){
+            return 0;
         }else if(max-min==0){
             return min;
         }else{

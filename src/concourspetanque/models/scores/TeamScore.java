@@ -1,4 +1,6 @@
-package concourspetanque.models;
+package concourspetanque.models.scores;
+
+import concourspetanque.models.Team;
 
 public class TeamScore extends Team{
     private int victories;
@@ -34,4 +36,9 @@ public class TeamScore extends Team{
         this.score--;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " [loses=" + loses + ", score=" + score + ", victories=" + victories + "]";
+    }
+    
 }
