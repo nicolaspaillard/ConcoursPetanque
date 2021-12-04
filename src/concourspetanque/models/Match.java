@@ -1,7 +1,5 @@
 package concourspetanque.models;
 
-import concourspetanque.utils.RandomGenerators;
-
 public class Match {//simples doublettes triplettes
     private Team opponent1;
     private Team opponent2;
