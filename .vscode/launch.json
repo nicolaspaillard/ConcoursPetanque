@@ -9,6 +9,13 @@
             "name": "Launch ConcoursPetanque",
             "request": "launch",
             "mainClass": "concourspetanque.ConcoursPetanque",
+            "projectName": "ConcoursPetanque_573545e3"
+        },
+        {
+            "type": "java",
+            "name": "Launch ConcoursPetanque",
+            "request": "launch",
+            "mainClass": "concourspetanque.ConcoursPetanque",
             "projectName": "ConcoursPetanque_edc41040"
         }
     ]

@@ -1,65 +1,91 @@
 package concourspetanque.views;
 
-import concourspetanque.controllers.GameController;
-import concourspetanque.controllers.ScoresController;
-import concourspetanque.models.GameMode;
-import concourspetanque.models.scores.MatchScores;
-import concourspetanque.models.scores.RoundScores;
+import concourspetanque.services.IGame;
+import concourspetanque.services.games.Championship;
+import concourspetanque.services.games.League;
+import concourspetanque.utils.Printer;
 
 public class ConsoleUI {
-    GameController gameController = null;
-    ScoresController scoresController = null;
-    public void start() { 
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();
-        while (true) {
-            boolean exit = false;
-            switch (printMenu("\n\tMenu principal :\n1 - Simulation mode rencontre\n2 - Simulation mode tournoi\n0 - Quitter")) {
-                case 1:
-                    gameController= new GameController(GameMode.LEAGUE);
-                    break;
-                case 2:
-                    gameController= new GameController(GameMode.CHAMPIONSHIP);
-                    break;
-                case 0:
-                    exit = true;
-                    break;
-                default:        
-                    System.out.println("Erreur : entrez un nombre valide.");     
-                    break;
-            }
-            if(exit)break;
-            if(gameController != null){
-                scoresController = gameController.getScores();
-                printTeams();
-                printTeamsScores();
-                printArbo();  
-                gameController = null;
+    private boolean exitStartMenu = false;
+    private boolean exitEndMenu = false;
+    private IGame game;
+
+    /**
+     * While loop pour le menu initial
+     */
+    public void start() {
+        while (!exitStartMenu) {
+            Printer.printStartMenu();
+            handleStartMenuChoices();
+            if (this.game != null) {
+                this.game.play();
+                this.results();
+                // reset global variables
+                this.game = null;
+                this.exitEndMenu = false;
             }
         }            
     }
-    private void printTeams() {
-        scoresController.getTeamsScores().forEach(t -> System.out.println("Team "+ (t.getId()+1) + " " + t.getPlayers()));
-        System.out.println();
-    }
-    private void printTeamsScores() {
-        scoresController.getTeamsScores().forEach(t -> System.out.println(t));
-        System.out.println();
-    }
-    private void printArbo() {
-        for (RoundScores roundScores : scoresController.getRoundsScores()) {
-            for (MatchScores matchScores : roundScores.getMatchesScores()) {
-                System.out.print((matchScores.getWinner().getId()+1)+" "+(matchScores.getLooser().getId()+1)+"\t");
-                if(roundScores.getMatchesScores().size()==1){
-                    System.out.println();
-                    System.out.println((matchScores.getWinner().getId()+1));
-                }
-            }
-            System.out.println();
+
+    /**
+     * Gestion des choix du menu initial
+     */
+    private void handleStartMenuChoices() {
+        switch (getUserInput()) {
+            case 0:
+                this.exitStartMenu = true;
+                break;
+            case 1:
+                this.game = new League();
+                break;
+            case 2:
+                this.game = new Championship();
+                break;
+            default:
+                System.out.println("Erreur : entrez un nombre valide.");
         }
     }
-    private int printMenu(String s) {
-        System.out.println(s);
+
+    /**
+     * While loop pour le menu de fin de partie
+     */
+    public void results() {
+        while (!exitEndMenu) {
+            Printer.printEndMenu();
+            handleEndMenuChoices();
+        }
+    }
+
+    private void handleEndMenuChoices() {
+        switch (getUserInput()) {
+            case 0:
+                this.exitEndMenu = true;
+                break;
+            case 1:
+                Printer.printPlayers(this.game.getPlayersController().getPlayers());
+                break;
+            case 2:
+                Printer.printTeams(this.game.getTeamsController().getTeams());
+                break;
+            case 3:
+                int teamsCount = this.game.getTeamsController().getTeams().size();
+                Printer.printMatchs(this.game.getMatchController().getMatchs(), teamsCount);
+                break;
+            case 4:
+                // Il faudra adater ce dernier choix et le wording pour la partie championnat
+                Printer.printLeagueResults(this.game.getTeamsController().getTeams());
+                break;
+            default:
+                System.out.println("Erreur : entrez un nombre valide.");
+        }
+    }
+    
+    /**
+     * Méthode pour gérer la saisie utilisateur
+     * @return
+     */
+    private int getUserInput() {
+        System.out.print("Votre choix : ");
         String userInput = System.console().readLine();
         try {
             int i = Integer.parseInt(userInput);
