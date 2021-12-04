@@ -7,6 +7,7 @@ public class TeamScore extends Team{
     private int loses;
 
     private int score;
+    private int points;
 
     public TeamScore(Team t) {
         super(t.getPlayers(), t.getId());
@@ -18,7 +19,12 @@ public class TeamScore extends Team{
     public void addVictory(){
         this.victories++;
     }
-
+    public void addPoints(int matchPoints){
+        this.points+=matchPoints;
+    }
+    public int getPoints(){
+        return this.points;
+    }
     public int getLoses(){
         return this.loses;
     }
@@ -38,7 +44,6 @@ public class TeamScore extends Team{
 
     @Override
     public String toString() {
-        return super.toString() + " [loses=" + loses + ", score=" + score + ", victories=" + victories + "]";
-    }
-    
+        return " [loses=" + loses + ", points=" + points + ", score=" + score + ", victories=" + victories + "]";
+    }    
 }

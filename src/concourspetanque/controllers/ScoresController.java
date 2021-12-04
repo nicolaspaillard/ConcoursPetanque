@@ -33,11 +33,13 @@ public class ScoresController {
         return matchScores.getWinner().getId();
     }
 
-    private void updateTeamsScores(MatchScores matchScore) {
-        this.teamsScores.get(matchScore.getWinner().getId()).addVictory();
-        this.teamsScores.get(matchScore.getLooser().getId()).addLoss();
-        this.teamsScores.get(matchScore.getWinner().getId()).addWin();
-        this.teamsScores.get(matchScore.getLooser().getId()).removeWin();
+    private void updateTeamsScores(MatchScores matchScores) {
+        this.teamsScores.get(matchScores.getWinner().getId()).addPoints(matchScores.getScore1()>matchScores.getScore2()?matchScores.getScore1():matchScores.getScore2());
+        this.teamsScores.get(matchScores.getLooser().getId()).addPoints(matchScores.getScore1()<matchScores.getScore2()?matchScores.getScore1():matchScores.getScore2());
+        this.teamsScores.get(matchScores.getWinner().getId()).addVictory();
+        this.teamsScores.get(matchScores.getLooser().getId()).addLoss();
+        this.teamsScores.get(matchScores.getWinner().getId()).addWin();
+        this.teamsScores.get(matchScores.getLooser().getId()).removeWin();
     }
    
     /** 
