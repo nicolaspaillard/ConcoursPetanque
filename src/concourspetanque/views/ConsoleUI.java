@@ -1,7 +1,5 @@
 package concourspetanque.views;
 
-import java.util.Scanner;
-
 import concourspetanque.controllers.GameController;
 import concourspetanque.controllers.ScoresController;
 import concourspetanque.models.GameMode;
@@ -11,24 +9,34 @@ import concourspetanque.models.scores.RoundScores;
 public class ConsoleUI {
     GameController gameController = null;
     ScoresController scoresController = null;
-    public void start() {        
-            int choice = 2;
-            switch (choice) {
+    public void start() { 
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();
+        while (true) {
+            boolean exit = false;
+            switch (printMenu("\n\tMenu principal :\n1 - Simulation mode rencontre\n2 - Simulation mode tournoi\n0 - Quitter")) {
                 case 1:
                     gameController= new GameController(GameMode.LEAGUE);
                     break;
                 case 2:
                     gameController= new GameController(GameMode.CHAMPIONSHIP);
                     break;
-                default:                    
+                case 0:
+                    exit = true;
+                    break;
+                default:        
+                    System.out.println("Erreur : entrez un nombre valide.");     
                     break;
             }
-            scoresController = gameController.getScores();
-
-            printTeams();
-            printTeamsScores();
-            printArbo();  
-            gameController = null;
+            if(exit)break;
+            if(gameController != null){
+                scoresController = gameController.getScores();
+                printTeams();
+                printTeamsScores();
+                printArbo();  
+                gameController = null;
+            }
+        }            
     }
     private void printTeams() {
         scoresController.getTeamsScores().forEach(t -> System.out.println("Team "+ (t.getId()+1) + " " + t.getPlayers()));
@@ -52,14 +60,12 @@ public class ConsoleUI {
     }
     private int printMenu(String s) {
         System.out.println(s);
-        Scanner sc = new Scanner(System.in);
-        int i = -1;
+        String userInput = System.console().readLine();
         try {
-            i = sc.nextInt();
+            int i = Integer.parseInt(userInput);
+            return i;
         } catch (Exception e) {
-            System.out.println("erreur catch");
-        }
-        sc.close();
-        return i;
+            return -1;
+        }       
     }
 }
