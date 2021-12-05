@@ -28,31 +28,30 @@ public class Championship extends AbstractGame {
     }
 
     private Round getRound(List<Team> tempTeams, int roundNumber){
-        List<int[]> ret = new ArrayList<int[]>();
+        List<int[]> matches = new ArrayList<int[]>();
         // Loops while there are teams to match in the tempTeams list 
         while(tempTeams.size()>0) {
-            int[] opponents = {0,0};// Must init ?
-            for (int i = 0; i < 2; i++) {
-                int team = RandomGenerators.generateNumberBetween(0, tempTeams.size()-1);
-                opponents[i] = tempTeams.get(team).getId();
-                tempTeams.remove(team);
+            int[] match = {0,0};// Must init ?
+            for (int opponentIndex = 0; opponentIndex < 2; opponentIndex++) {
+                int opponentId = RandomGenerators.generateNumberBetween(0, tempTeams.size()-1);
+                match[opponentIndex] = tempTeams.get(opponentId).getId();
+                tempTeams.remove(opponentId);
             }
-            ret.add(opponents);
+            matches.add(match);
         }
-        return new Round(ret, roundNumber);
+        return new Round(matches, roundNumber);
     } 
 
     private List<Team> playRound(Round round){
         List<Team> teams = new ArrayList<Team>();
-        for (int matchNumber = 0; matchNumber< round.getMatchesCount(); matchNumber++) {
-            int[] teamsIDs = round.getOpponentsIds(matchNumber);
-            teams.add(getMatchWinner(teamsIDs[0], teamsIDs[1], round.getRoundNumber()));            
+        for (int matchNumber = 0; matchNumber<round.getMatchesCount(); matchNumber++) {
+            teams.add(getMatchWinner(round.getOpponentsIds(matchNumber), round.getRoundNumber()));            
         }
         return teams;
     } 
 
-    private Team getMatchWinner(int teamID1, int teamID2, int roundNumber) {
-        return matchController.playMatch(teamsController.getTeam(teamID1), teamsController.getTeam(teamID2), roundNumber).getWinner();
+    private Team getMatchWinner(int[] teamIds, int roundNumber) {
+        return matchController.playMatch(teamsController.getTeam(teamIds[0]), teamsController.getTeam(teamIds[1]), roundNumber).getWinner();
     }
 
     @Override
