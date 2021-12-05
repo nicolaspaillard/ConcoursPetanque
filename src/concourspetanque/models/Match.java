@@ -6,14 +6,16 @@ public class Match {//simples doublettes triplettes
     private int opponent1score = 0;
     private int opponent2score = 0;
     private Team winner;
+    private int roundNumber;
     //private int score;
 
-    public Match(Team opponent1, Team opponent2, int opponent1score, int opponent2score) {
+    public Match(Team opponent1, Team opponent2, int opponent1score, int opponent2score, int roundNumber) {
         this.opponent1 = opponent1;
         this.opponent2 = opponent2;
         this.opponent1score = opponent1score;
         this.opponent2score = opponent2score;
         this.winner = this.opponent1score > this.opponent2score ? this.opponent1 : this.opponent2;
+        this.roundNumber = roundNumber;
     }
 
     public Team getOpponent1() {
@@ -22,6 +24,10 @@ public class Match {//simples doublettes triplettes
 
     public Team getOpponent2() {
         return opponent2;
+    }
+
+    public int getRoundNumber(){
+        return roundNumber;
     }
 
     public Team getWinner() {
