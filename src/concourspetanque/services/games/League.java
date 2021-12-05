@@ -28,24 +28,6 @@ public class League extends AbstractGame {
         updateTeams();
     }
 
-    // private void getRounds(int teamsCount) {
-    //     ILeagueRounds roundsSetup = null;
-    //     switch (teamsCount) {
-    //         case 6:
-    //             roundsSetup = new SixTeamsRounds();
-    //             break;
-    //         case 8:
-    //             roundsSetup = new EightTeamsRounds();
-    //             break;
-    //         case 10:
-    //             roundsSetup = new TenTeamsRounds();
-    //             break;
-    //         case 12:
-    //             roundsSetup = new TwelveTeamsRounds();
-    //     }
-    //     this.rounds = roundsSetup.getRounds();
-    // }
-
     private void play4Rounds() {
         // Jouer les 4 rounds
         for (int i = 0 ; i < 4 ; i++) {
