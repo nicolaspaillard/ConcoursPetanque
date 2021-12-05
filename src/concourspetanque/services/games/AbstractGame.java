@@ -6,7 +6,6 @@ import java.util.List;
 import concourspetanque.controllers.MatchController;
 import concourspetanque.controllers.PlayersController;
 import concourspetanque.controllers.TeamsController;
-import concourspetanque.models.Player;
 import concourspetanque.services.IGame;
 
 public abstract class AbstractGame implements IGame {
@@ -26,7 +25,6 @@ public abstract class AbstractGame implements IGame {
 
     @Override
     public void play() {
-        System.out.println("Inside Play");
         this.generatePlayers();
         this.buildTeams();
         this.startCompetition();
@@ -34,21 +32,12 @@ public abstract class AbstractGame implements IGame {
 
     @Override
     public void generatePlayers() {
-        System.out.println("Inside generatePlayers");
         this.playersController.generatePlayers(minPlayers, maxPlayers);
     }
 
     @Override
     public void buildTeams() {
-        // for (int i = minPlayers ; i <= maxPlayers ; i++) {
-        //     int t = this.teamsController.computeTeamsCount(i, allowedNumberOfTeams);
-        //     System.out.println("nb joueurs : " + i + " nb teams : " + t);
-        // }
-        System.out.println("Inside buildTeams");
-        List<Player> players = new ArrayList<>();
-        players.addAll(this.playersController.getPlayers());
-        this.teamsController.buildTeams(players, this.allowedNumberOfTeams);
-
+        this.teamsController.buildTeams(this.playersController.getPlayers(), this.allowedNumberOfTeams);
     }
 
     @Override

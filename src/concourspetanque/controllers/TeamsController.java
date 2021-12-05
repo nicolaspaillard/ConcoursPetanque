@@ -35,18 +35,19 @@ public class TeamsController {
      * @param teamsCount Number of teams to build
      */
     public void buildTeams(List<Player> players, List<Integer> allowedNumberOfTeams) {
+        List<Player> tempPlayers = new ArrayList<Player>(players);
         // Récupère le nombre d'équipes
-        int teamsCount = computeTeamsCount(players.size(), allowedNumberOfTeams);
+        int teamsCount = computeTeamsCount(tempPlayers.size(), allowedNumberOfTeams);
         // Pour chaque équipe, sélectionne 2 joueurs aléatoires
         for (int i = 0; i < teamsCount; i++) {
-            List<Player> selectedPlayers = select2RandomPlayers(players);
+            List<Player> selectedPlayers = select2RandomPlayers(tempPlayers);
             // Retire les deux joueurs sélectionnés de la liste et crée une nouvelle équipe
-            selectedPlayers.forEach(p -> players.remove(p));
+            selectedPlayers.forEach(p -> tempPlayers.remove(p));
             teams.add(new Team(selectedPlayers, i));
         }
         // S'il reste des joueurs dans la liste, les ajoute a des équipes aléatoires
-        if (players.size()>0) {
-            addRemainingPlayers(players);
+        if (tempPlayers.size()>0) {
+            addRemainingPlayers(tempPlayers);
         }
     }
 

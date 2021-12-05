@@ -32,13 +32,13 @@ public class PlayersController {
      */
     public void generatePlayers(int min, int max) {
         // Generate a random number of players
-        int numberOfPlayers = RandomGenerators.generateNumberBetween(12,36);
+        int numberOfPlayers = RandomGenerators.generateNumberBetween(min, max+1);
         // Instanciate players (FirstName, Name, Age, ID)
         for (int i = 0 ; i < numberOfPlayers ; i++) {
             Player newPlayer = new Player(
                 RandomGenerators.generateName(), 
                 RandomGenerators.generateName(), 
-                RandomGenerators.generateNumberBetween(18, 99), 
+                RandomGenerators.generateNumberBetween(18, 100), // WARNING
                 i
             );
             this.players.add(newPlayer);

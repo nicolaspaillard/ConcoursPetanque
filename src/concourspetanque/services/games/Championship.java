@@ -19,7 +19,7 @@ public class Championship extends AbstractGame {
 
     @Override
     public void generatePlayers() {
-        switch (RandomGenerators.generateNumberBetween(0, 2)) {
+        switch (RandomGenerators.generateNumberBetween(0, 3)) {
             case 0: // 4 teams
                 this.playersController.generatePlayers(8, 12);
                 break;
@@ -34,24 +34,21 @@ public class Championship extends AbstractGame {
 
     @Override
     public void startCompetition() {
-        System.out.println("Championship : inside startCompetition");
         List<Team> tempTeams = new ArrayList<Team>(this.teamsController.getTeams());
         int roundNumber = 0;
         while (tempTeams.size() > 1) {
-            System.out.println("Championship : while tempTeams > 1");
             tempTeams = playRound(getRound(tempTeams, roundNumber));
             roundNumber++;
         }
     }
 
     private Round getRound(List<Team> tempTeams, int roundNumber) {
-        System.out.println("Championship : inside startCompetition");
         List<int[]> matches = new ArrayList<int[]>();
         // Loops while there are teams to match in the tempTeams list 
         while(tempTeams.size()>0) {
             int[] match = {0,0};// Must init ?
             for (int opponentIndex = 0; opponentIndex < 2; opponentIndex++) {
-                int opponentId = RandomGenerators.generateNumberBetween(0, tempTeams.size()-1);
+                int opponentId = RandomGenerators.generateNumberBetween(0, tempTeams.size());
                 match[opponentIndex] = tempTeams.get(opponentId).getId();
                 tempTeams.remove(opponentId);
             }
@@ -61,7 +58,6 @@ public class Championship extends AbstractGame {
     } 
 
     private List<Team> playRound(Round round){
-        System.out.println("Championship : inside playRound");
         List<Team> winners = new ArrayList<Team>();
         for (int matchNumber = 0; matchNumber<round.getMatchesCount(); matchNumber++) {
             winners.add(getMatchWinner(round.getOpponentsIds(matchNumber), round.getRoundNumber()));            
