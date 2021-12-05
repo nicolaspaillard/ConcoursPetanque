@@ -2,12 +2,12 @@ package concourspetanque.controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import concourspetanque.models.Match;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
+import concourspetanque.utils.GoalAverageComparator;
 import concourspetanque.utils.RandomGenerators;
 
 public class TeamsController {
@@ -173,13 +173,6 @@ public class TeamsController {
             }
         }
         return teamsByVictories;
-    }
-
-    public class GoalAverageComparator implements Comparator<Team> {
-        @Override
-        public int compare(Team team1, Team team2) {
-            return Integer.compare(team2.getGoalAverage(), team1.getGoalAverage());
-        }
     }
 
     private void setTeamsRank(List<Team> teams) {
