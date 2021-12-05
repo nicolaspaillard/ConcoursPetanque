@@ -2,6 +2,7 @@ package concourspetanque.services.games;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Championship extends AbstractGame {
 
@@ -15,8 +16,12 @@ public class Championship extends AbstractGame {
 
     @Override
     public void startCompetition() {
-        // TODO Auto-generated method stub
-        
+        List<Team> teams = new ArrayList<Team>(this.teamsController.getTeams());
+        int roundNumber = 0;
+        while (teams.size() > 1) {
+            teams = playRounds(Arrays.asList(getRound(teams)), roundNumber);
+            roundNumber++;
+        }
     }
 
     @Override
