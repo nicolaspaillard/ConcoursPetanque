@@ -2,8 +2,6 @@ package concourspetanque.services.games;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import concourspetanque.models.Round;
@@ -11,7 +9,6 @@ import concourspetanque.models.Team;
 import concourspetanque.utils.RandomGenerators;
 
 public class Championship extends AbstractGame {
-
 
     public Championship() {
         super();
