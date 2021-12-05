@@ -8,7 +8,6 @@ import java.util.List;
 import concourspetanque.models.Match;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
-import concourspetanque.utils.Printer;
 import concourspetanque.utils.RandomGenerators;
 
 public class TeamsController {
