@@ -2,14 +2,12 @@ package concourspetanque.controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import concourspetanque.models.Match;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
 import concourspetanque.utils.GoalAverageComparator;
-import concourspetanque.utils.Printer;
 import concourspetanque.utils.RandomGenerators;
 
 public class TeamsController {
