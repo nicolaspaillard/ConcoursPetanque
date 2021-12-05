@@ -1,7 +1,6 @@
 package concourspetanque.models.rounds.implementations;
 
 import java.util.Arrays;
-import java.util.List;
 
 import concourspetanque.models.Round;
 import concourspetanque.models.rounds.ILeagueRounds;
@@ -15,7 +14,7 @@ public class TenTeamsRounds implements ILeagueRounds {
             new int[]{5,6},
             new int[]{7,8},
             new int[]{9,10}
-        ));
+        ), 0);
     }
     @Override
     public Round roundTwo() {
@@ -25,7 +24,7 @@ public class TenTeamsRounds implements ILeagueRounds {
             new int[]{6,7},
             new int[]{8,9},
             new int[]{10,1}
-        ));
+        ), 1);
     }
     @Override
     public Round roundThree() {
@@ -35,7 +34,7 @@ public class TenTeamsRounds implements ILeagueRounds {
             new int[]{9,6},
             new int[]{8,10},
             new int[]{5,7}
-        ));
+        ), 2);
     }
     @Override
     public Round roundFour() {
@@ -45,6 +44,6 @@ public class TenTeamsRounds implements ILeagueRounds {
             new int[]{10,3},
             new int[]{5,2},
             new int[]{4,1}
-        ));
+        ), 3);
     }
 }
