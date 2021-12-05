@@ -1,6 +1,5 @@
 package concourspetanque.services.games;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import concourspetanque.controllers.MatchController;
