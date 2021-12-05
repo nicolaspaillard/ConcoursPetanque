@@ -44,8 +44,8 @@ public class Championship extends AbstractGame {
 
     private List<Team> playRound(Round round){
         List<Team> teams = new ArrayList<Team>();
-        for (int j = 0; j< round.getMatchesCount(); j++) {
-            int[] teamsIDs = round.getOpponentsIds(j);
+        for (int matchNumber = 0; matchNumber< round.getMatchesCount(); matchNumber++) {
+            int[] teamsIDs = round.getOpponentsIds(matchNumber);
             teams.add(getMatchWinner(teamsIDs[0], teamsIDs[1], round.getRoundNumber()));            
         }
         return teams;
