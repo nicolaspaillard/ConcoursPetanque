@@ -11,6 +11,7 @@ public class Team {//simples doublettes triplettes
     private int victories = 0;
     private int goalAverage = 0;
     private int id;
+    private int ranking;
 
     //private int score;
     public Team(List<Player> players, int id) {
@@ -81,6 +82,14 @@ public class Team {//simples doublettes triplettes
 
     public void setGoalAverage(int goalAverage) {
         this.goalAverage = goalAverage;
+    }
+
+    public int getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
     }
 
     @Override

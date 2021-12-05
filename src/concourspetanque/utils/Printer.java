@@ -136,7 +136,7 @@ public class Printer {
             System.out.printf("%8s", team.getPositivePoints() + team.getNegativePoints());
             // Affiche Victoire et position
             System.out.printf("%11s", team.getVictories());
-            System.out.printf("%10s", "?");
+            System.out.printf("%10s", (team.getRanking() + 1));
             System.out.println("");
         }
     }

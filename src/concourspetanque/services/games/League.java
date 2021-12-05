@@ -77,6 +77,7 @@ public class League extends AbstractGame {
             this.teamsController.updateTeamsScores(match);
             this.teamsController.updateTeamsVictories(match);
             this.teamsController.updateTeamsGoalAverage();
+            this.teamsController.updateTeamsRanking();
         }
     }
     

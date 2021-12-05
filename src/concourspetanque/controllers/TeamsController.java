@@ -1,11 +1,14 @@
 package concourspetanque.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import concourspetanque.models.Match;
 import concourspetanque.models.Player;
 import concourspetanque.models.Team;
+import concourspetanque.utils.Printer;
 import concourspetanque.utils.RandomGenerators;
 
 public class TeamsController {
@@ -149,6 +152,40 @@ public class TeamsController {
     public void updateTeamsGoalAverage() {
         for (Team team : this.teams) {
             team.setGoalAverage(team.getPositivePoints() + team.getNegativePoints());
+        }
+    }
+
+    public void updateTeamsRanking() {
+        List<Team> finalTeamsSorted = new ArrayList<>();
+        // Boucle sur le score des équipes de 4 à 0
+        for (int i = 4; i >= 0 ; i--) {
+            List<Team> teamsByVictories = teamVictoriesMatch(i);
+            finalTeamsSorted.addAll(teamsByVictories);
+        }
+        setTeamsRank(finalTeamsSorted);
+    }
+
+    private List<Team> teamVictoriesMatch(int i) {
+        List<Team> teamsByVictories = new ArrayList<>();
+        for (Team team : this.teams) {
+            if (team.getVictories() == i) {
+                teamsByVictories.add(team);
+                Collections.sort(teamsByVictories, new GoalAverageComparator());
+            }
+        }
+        return teamsByVictories;
+    }
+
+    public class GoalAverageComparator implements Comparator<Team> {
+        @Override
+        public int compare(Team team1, Team team2) {
+            return Integer.compare(team2.getGoalAverage(), team1.getGoalAverage());
+        }
+    }
+
+    private void setTeamsRank(List<Team> teams) {
+        for (int i = 0 ; i < teams.size() ; i++) {
+            teams.get(i).setRanking(i);
         }
     }
 }
