@@ -7,11 +7,7 @@ import java.util.List;
 import concourspetanque.models.Match;
 import concourspetanque.models.Round;
 import concourspetanque.models.Team;
-import concourspetanque.models.rounds.ILeagueRounds;
-import concourspetanque.models.rounds.implementations.EightTeamsRounds;
-import concourspetanque.models.rounds.implementations.SixTeamsRounds;
-import concourspetanque.models.rounds.implementations.TenTeamsRounds;
-import concourspetanque.models.rounds.implementations.TwelveTeamsRounds;
+import concourspetanque.models.rounds.RoundsStrategy;
 
 public class League extends AbstractGame {
     private List<Round> rounds;
@@ -25,28 +21,30 @@ public class League extends AbstractGame {
     
     @Override
     public void startCompetition() {
-        getRounds(this.teamsController.getTeams().size());
+        int teamsCount = this.teamsController.getTeams().size();
+        this.rounds = RoundsStrategy.getRounds(teamsCount);
+        // getRounds(this.teamsController.getTeams().size());
         play4Rounds();
         updateTeams();
     }
 
-    private void getRounds(int teamsCount) {
-        ILeagueRounds roundsSetup = null;
-        switch (teamsCount) {
-            case 6:
-                roundsSetup = new SixTeamsRounds();
-                break;
-            case 8:
-                roundsSetup = new EightTeamsRounds();
-                break;
-            case 10:
-                roundsSetup = new TenTeamsRounds();
-                break;
-            case 12:
-                roundsSetup = new TwelveTeamsRounds();
-        }
-        this.rounds = roundsSetup.getRounds();
-    }
+    // private void getRounds(int teamsCount) {
+    //     ILeagueRounds roundsSetup = null;
+    //     switch (teamsCount) {
+    //         case 6:
+    //             roundsSetup = new SixTeamsRounds();
+    //             break;
+    //         case 8:
+    //             roundsSetup = new EightTeamsRounds();
+    //             break;
+    //         case 10:
+    //             roundsSetup = new TenTeamsRounds();
+    //             break;
+    //         case 12:
+    //             roundsSetup = new TwelveTeamsRounds();
+    //     }
+    //     this.rounds = roundsSetup.getRounds();
+    // }
 
     private void play4Rounds() {
         // Jouer les 4 rounds

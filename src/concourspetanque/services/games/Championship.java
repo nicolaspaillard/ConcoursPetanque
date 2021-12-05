@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Championship extends AbstractGame {
+import concourspetanque.models.Team;
 
+public class Championship extends AbstractGame {
 
     public Championship() {
         super();
@@ -19,7 +20,7 @@ public class Championship extends AbstractGame {
         List<Team> teams = new ArrayList<Team>(this.teamsController.getTeams());
         int roundNumber = 0;
         while (teams.size() > 1) {
-            teams = playRounds(Arrays.asList(getRound(teams)), roundNumber);
+            // teams = playRounds(Arrays.asList(getRound(teams)), roundNumber);
             roundNumber++;
         }
     }
