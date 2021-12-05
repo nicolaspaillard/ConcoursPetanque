@@ -8,9 +8,12 @@ public class Match {//simples doublettes triplettes
     private Team winner;
     //private int score;
 
-    public Match(Team opponent1, Team opponent2) {
+    public Match(Team opponent1, Team opponent2, int opponent1score, int opponent2score) {
         this.opponent1 = opponent1;
         this.opponent2 = opponent2;
+        this.opponent1score = opponent1score;
+        this.opponent2score = opponent2score;
+        this.winner = this.opponent1score > this.opponent2score ? this.opponent1 : this.opponent2;
     }
 
     public Team getOpponent1() {
@@ -25,24 +28,12 @@ public class Match {//simples doublettes triplettes
         return winner;
     }
 
-    public void setWinner(Team winner) {
-        this.winner = winner;
-    }
-
     public int getOpponent1score() {
         return opponent1score;
     }
 
-    public void setOpponent1score(int opponent1score) {
-        this.opponent1score = opponent1score;
-    }
-
     public int getOpponent2score() {
         return opponent2score;
-    }
-
-    public void setOpponent2score(int opponent2score) {
-        this.opponent2score = opponent2score;
     }
 
     @Override

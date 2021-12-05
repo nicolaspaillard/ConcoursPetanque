@@ -14,7 +14,7 @@ public class Round {
     public int getMatchesCount() {
         return gamesTeamsNumbers.size();
     }
-    public int[] getOpponentsIDs(int index) {
+    public int[] getOpponentsIds(int index) {
         return gamesTeamsNumbers.get(index);
     }
 }

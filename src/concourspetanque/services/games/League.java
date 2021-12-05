@@ -14,7 +14,6 @@ import concourspetanque.models.rounds.implementations.TenTeamsRounds;
 import concourspetanque.models.rounds.implementations.TwelveTeamsRounds;
 
 public class League extends AbstractGame {
-    private ILeagueRounds roundsSetup;
     private List<Round> rounds;
 
     public League() {
@@ -26,26 +25,27 @@ public class League extends AbstractGame {
     
     @Override
     public void startCompetition() {
-        getRoundsStrategy(this.teamsController.getTeams().size());
+        getRounds(this.teamsController.getTeams().size());
         play4Rounds();
         updateTeams();
     }
 
-    private void getRoundsStrategy(int teamsCount) {
+    private void getRounds(int teamsCount) {
+        ILeagueRounds roundsSetup = null;
         switch (teamsCount) {
             case 6:
-                this.roundsSetup = new SixTeamsRounds();
+                roundsSetup = new SixTeamsRounds();
                 break;
             case 8:
-                this.roundsSetup = new EightTeamsRounds();
+                roundsSetup = new EightTeamsRounds();
                 break;
             case 10:
-                this.roundsSetup = new TenTeamsRounds();
+                roundsSetup = new TenTeamsRounds();
                 break;
             case 12:
-                this.roundsSetup = new TwelveTeamsRounds();
+                roundsSetup = new TwelveTeamsRounds();
         }
-        this.rounds = this.roundsSetup.getRounds();
+        this.rounds = roundsSetup.getRounds();
     }
 
     private void play4Rounds() {
@@ -58,8 +58,8 @@ public class League extends AbstractGame {
     private void playRound(Round round) {
         // Jouer les différents matchs du round
         for (int i = 0 ; i < round.getMatchesCount() ; i++) {
-            int team1Id = round.getOpponentsIDs(i)[0] - 1;
-            int team2Id = round.getOpponentsIDs(i)[1] - 1;
+            int team1Id = round.getOpponentsIds(i)[0] - 1;
+            int team2Id = round.getOpponentsIds(i)[1] - 1;
             // System.out.println(team1Id);
             // System.out.println(team2Id);
             Team team1 = teamsController.getTeam(team1Id);
@@ -75,7 +75,7 @@ public class League extends AbstractGame {
     @Override
     public void updateTeams() {
         for(Match match : this.matchController.getMatchs()) {
-            this.teamsController.updateTeamsMatchs(match);
+            this.teamsController.updateTeamsMatches(match);
             this.teamsController.updateTeamsScores(match);
             this.teamsController.updateTeamsVictories(match);
             this.teamsController.updateTeamsGoalAverage();

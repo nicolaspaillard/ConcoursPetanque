@@ -69,7 +69,7 @@ public class ConsoleUI {
                 break;
             case 3:
                 int teamsCount = this.game.getTeamsController().getTeams().size();
-                Printer.printMatchs(this.game.getMatchController().getMatchs(), teamsCount);
+                Printer.printMatches(this.game.getMatchController().getMatchs(), teamsCount);
                 break;
             case 4:
                 // Il faudra adater ce dernier choix et le wording pour la partie championnat

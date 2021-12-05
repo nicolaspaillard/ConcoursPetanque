@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Team {//simples doublettes triplettes
     private List<Player> players = new ArrayList<>();
-    private List<Match> playedMatchs = new ArrayList<>();
+    private List<Match> playedMatches = new ArrayList<>();
     private int positivePoints = 0;
     private int negativePoints = 0;
     private int victories = 0;
@@ -49,13 +49,12 @@ public class Team {//simples doublettes triplettes
     }
 
     public List<Match> getPlayedMatchs() {
-        return playedMatchs;
+        return playedMatches;
     }
 
-    public void setPlayedMatchs(List<Match> playedMatchs) {
-        this.playedMatchs = playedMatchs;
+    public void addMatch(Match match) {
+        this.playedMatches.add(match);
     }
-
     public int getPositivePoints() {
         return positivePoints;
     }

@@ -26,10 +26,7 @@ public class MatchController {
             opponent2score = RandomGenerators.generateNumberBetween(0, 14);
         }
         // Instanciate match
-        Match match = new Match(team1, team2);
-        match.setOpponent1score(opponent1score);
-        match.setOpponent2score(opponent2score);
-        match.setWinner(opponent1score > opponent2score ? team1 : team2);
+        Match match = new Match(team1, team2, opponent1score, opponent2score);
         // Add match to List
         this.matchs.add(match);
     }

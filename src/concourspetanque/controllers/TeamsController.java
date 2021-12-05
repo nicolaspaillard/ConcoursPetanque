@@ -114,11 +114,11 @@ public class TeamsController {
      * Ajoute le match à la liste des matchs joués pour chaque équipe
      * @param match
      */
-    public void updateTeamsMatchs(Match match) {
+    public void updateTeamsMatches(Match match) {
         int teamOneId = match.getOpponent1().getId();
         int teamTwoId = match.getOpponent2().getId();
-        this.teams.get(teamOneId).getPlayedMatchs().add(match);
-        this.teams.get(teamTwoId).getPlayedMatchs().add(match);
+        this.teams.get(teamOneId).addMatch(match);
+        this.teams.get(teamTwoId).addMatch(match);
     }
 
     /**

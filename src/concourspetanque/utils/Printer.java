@@ -70,7 +70,7 @@ public class Printer {
         }
     }
 
-    public static void printMatchs(List<Match> matchs, int teamsCount) {
+    public static void printMatches(List<Match> matchs, int teamsCount) {
         int matchsPerRound = teamsCount / 2;
         // Titre
         printLine(40);
