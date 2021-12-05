@@ -7,6 +7,31 @@ import concourspetanque.models.Team;
 
 public class Printer {
 
+    public static void printArbo(List<Match> matches) {
+        int totalRounds = matches.get(matches.size() - 1).getRoundNumber();
+        for (int i = 0; i <= totalRounds ; i++) {
+            // matches.forEach(match -> match.getRoundNumber() == i?);
+            for(Match match : matches) {
+                if (match.getRoundNumber() == i) {
+                    System.out.print((match.getOpponent1().getId()+1) + "-" + (match.getOpponent2().getId()+1) + " | ");
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println(matches.get(matches.size() - 1).getWinner().getId() + 1);
+
+        // for (RoundScores roundScores : scoresController.getRoundsScores()) {
+        //     for (MatchScores matchScores : roundScores.getMatchesScores()) {
+        //         System.out.print((matchScores.getWinner().getId()+1)+" "+(matchScores.getLooser().getId()+1)+"\t");
+        //         if(roundScores.getMatchesScores().size()==1){
+        //             System.out.println();
+        //             System.out.println((matchScores.getWinner().getId()+1));
+        //         }
+        //     }
+        //     System.out.println();
+        // }
+    }
+
     public static void printStartMenu() {
         Printer.printLine(40);
         System.out.println("\n\tMenu principal :");
@@ -88,7 +113,7 @@ public class Printer {
             System.out.printf("%3s", matchs.get(i).getOpponent2score());
             System.out.printf("%8s", "Team" + (matchs.get(i).getOpponent2().getId() + 1));
             System.out.printf("%10s", "");
-            System.out.printf("%-25s", "Winner : Team" + (matchs.get(i).getWinner().getId() + 1));
+            System.out.printf("%-25s", "Winner : Team" + (matchs.get(i).getWinner().getId() + 1) + " - round : " + matchs.get(i).getRoundNumber());
             System.out.println("");
         }
     }

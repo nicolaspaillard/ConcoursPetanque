@@ -75,6 +75,9 @@ public class ConsoleUI {
                 // Il faudra adater ce dernier choix et le wording pour la partie championnat
                 Printer.printLeagueResults(this.game.getTeamsController().getTeams());
                 break;
+            case 5:
+                Printer.printArbo(this.game.getMatchController().getMatchs());
+                break;
             default:
                 System.out.println("Erreur : entrez un nombre valide.");
         }
