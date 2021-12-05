@@ -33,19 +33,12 @@ public class Team {//simples doublettes triplettes
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-
     public void addPlayer(Player player) {
         this.players.add(player);
     }
 
     public int getId() {
         return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
 
     public List<Match> getPlayedMatchs() {
@@ -55,20 +48,13 @@ public class Team {//simples doublettes triplettes
     public void addMatch(Match match) {
         this.playedMatches.add(match);
     }
+    
     public int getPositivePoints() {
         return positivePoints;
     }
 
-    public void setPositivePoints(int positivePoints) {
-        this.positivePoints = positivePoints;
-    }
-
     public int getNegativePoints() {
         return negativePoints;
-    }
-
-    public void setNegativePoints(int negativePoints) {
-        this.negativePoints = negativePoints;
     }
 
     public int getVictories() {
