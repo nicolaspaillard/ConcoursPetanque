@@ -1,8 +1,7 @@
-package concourspetanque;
 import concourspetanque.utils.Printer;
 import concourspetanque.views.ConsoleUI;
 
-public class ConcoursPetanque {
+public class Main {
 
     /**
      * @param args the command line arguments

@@ -8,6 +8,9 @@ import concourspetanque.views.menus.ChampionshipEndMenu;
 import concourspetanque.views.menus.IMenu;
 import concourspetanque.views.menus.LeagueEndMenu;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class ConsoleUI {
     private boolean exit = false;
     private IGame game;
@@ -58,8 +61,10 @@ public class ConsoleUI {
      */
     public static int getUserInput() {
         System.out.print("Votre choix : ");
-        String userInput = System.console().readLine();
         try {
+            InputStreamReader streamReader = new InputStreamReader(System.in);
+            BufferedReader bufferedReader = new BufferedReader(streamReader);
+            String userInput = bufferedReader.readLine();
             int i = Integer.parseInt(userInput);
             return i;
         } catch (Exception e) {
