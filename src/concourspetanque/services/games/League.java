@@ -6,7 +6,6 @@ import java.util.List;
 
 import concourspetanque.models.Match;
 import concourspetanque.models.Round;
-import concourspetanque.models.Team;
 import concourspetanque.models.rounds.RoundsStrategy;
 
 public class League extends AbstractGame {
@@ -18,12 +17,17 @@ public class League extends AbstractGame {
         this.maxPlayers = 36;
         this.allowedNumberOfTeams = new ArrayList<>(Arrays.asList(6, 8, 10, 12));
     }
+
+
+    @Override
+    public void generatePlayers() {
+        this.playersController.generatePlayers(minPlayers, maxPlayers);
+    }
     
     @Override
     public void startCompetition() {
         int teamsCount = this.teamsController.getTeams().size();
         this.rounds = RoundsStrategy.getRounds(teamsCount);
-        // getRounds(this.teamsController.getTeams().size());
         play4Rounds();
         updateTeams();
     }
@@ -31,28 +35,22 @@ public class League extends AbstractGame {
     private void play4Rounds() {
         // Jouer les 4 rounds
         for (int i = 0 ; i < 4 ; i++) {
-            playRound(rounds.get(i));
+            this.playRound(rounds.get(i));
         }
     }
 
-    private void playRound(Round round) {
-        // Jouer les différents matchs du round
-        for (int i = 0 ; i < round.getMatchesCount() ; i++) {
-            int team1Id = round.getOpponentsIds(i)[0] - 1;
-            int team2Id = round.getOpponentsIds(i)[1] - 1;
-            // System.out.println(team1Id);
-            // System.out.println(team2Id);
-            Team team1 = teamsController.getTeam(team1Id);
-            Team team2 = teamsController.getTeam(team2Id);
-            this.matchController.playMatch(team1, team2, round.getRoundNumber());
-        }
+    @Override
+    protected int[] getOpponents(Round round, int matchNumber) {
+        int[] opponentsIds = {0,0};
+        opponentsIds[0] = round.getOpponentsIds(matchNumber)[0] - 1;
+        opponentsIds[1] = round.getOpponentsIds(matchNumber)[1] - 1;
+        return opponentsIds;
     }
 
     /**
      * Pour chaque match joué, ajoute les informations (Matchs joués, scores, victoires, 
      * goal average) aux Teams pour faciliter l'affichage des informations finales.
      */
-    @Override
     public void updateTeams() {
         for(Match match : this.matchController.getMatchs()) {
             this.teamsController.updateTeamsMatches(match);

@@ -9,7 +9,6 @@ public interface IGame {
     void generatePlayers();
     void buildTeams();
     void startCompetition();
-    void updateTeams();
     TeamsController getTeamsController();
     PlayersController getPlayersController();
     MatchController getMatchController();
