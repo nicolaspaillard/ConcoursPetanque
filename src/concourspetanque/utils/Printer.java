@@ -18,7 +18,7 @@ public class Printer {
      */
     public static void printStartMenu() {
         Printer.printLine(40);
-        System.out.println("\n\tMenu principal :");
+        System.out.println("\n\tMENU PRINCIPAL\n");
         System.out.println("1 - Jouer en mode ligue");
         System.out.println("2 - Jouer en mode championnat");
         System.out.println("0 - Quitter");
@@ -30,11 +30,14 @@ public class Printer {
      */
     public static void printLeagueEndMenu() {
         Printer.printLine(40);
-        System.out.println("\n\tMenu de fin de partie :");
+        System.out.println("\n\tMENU DE FIN DE PARTIE\n");
         System.out.println("1 - Afficher la liste des joueurs");
         System.out.println("2 - Afficher la liste des équipes");
         System.out.println("3 - Afficher le déroulé des matchs");
-        System.out.println("4 - Afficher les résultats finaux");
+        System.out.println("4 - Afficher le tableau des résultats");
+        System.out.println("5 - Trier les joueurs par prénom");
+        System.out.println("6 - Trier les joueurs par nom");
+        System.out.println("7 - Trier les joueurs par âge");
         System.out.println("0 - Terminer et revenir au menu principal");
         Printer.printLine(40);
     }
@@ -44,11 +47,14 @@ public class Printer {
      */
     public static void printChampionshipEndMenu() {
         Printer.printLine(40);
-        System.out.println("\n\tMenu de fin de partie :");
+        System.out.println("\n\tMENU DE FIN DE PARTIE\n");
         System.out.println("1 - Afficher la liste des joueurs");
         System.out.println("2 - Afficher la liste des équipes");
         System.out.println("3 - Afficher le déroulé des matchs");
-        System.out.println("4 - Afficher arborescence finale");
+        System.out.println("4 - Afficher l'arborescence des matchs");
+        System.out.println("5 - Trier les joueurs par prénom");
+        System.out.println("6 - Trier les joueurs par nom");
+        System.out.println("7 - Trier les joueurs par âge");
         System.out.println("0 - Terminer et revenir au menu principal");
         Printer.printLine(40);
     }
@@ -210,12 +216,19 @@ public class Printer {
                     System.out.printf("%2s", "vs");
                     System.out.printf("%6s", "T" + (match.getOpponent2().getId()+1) + " |");
                     System.out.printf("%3s", "");
-                    // System.out.print((match.getOpponent1().getId()+1) + "-" + (match.getOpponent2().getId()+1) + " | ");
                 }
             }
             System.out.println("\n");
         }
         System.out.println("| T" + (matches.get(matches.size() - 1).getWinner().getId() + 1) + " |  Winner !!");
+    }
+
+    
+    /**
+     * Affiche l'ASCII art "Game Over"
+     */
+    public static void printGameOver() {
+        System.out.println(asciiText2());
     }
 
 
@@ -243,7 +256,21 @@ public class Printer {
                 "    `--'      `--`--'`--'     `--'  `--' `----'`----'      `----'`--''--'     `---' `---'  `----' `--'   `----'     .--.  \n" +
                 "                                                                                                                    '--'  \n";
     }
-    
+
+    /**
+     * Retourne une string avec ASCII art "GAME OVER"
+     * @return
+     */
+    private static final String asciiText2() {
+        return "_______  _______  __   __  _______    _______  __   __  _______  ______    \n" +
+                "|       ||   _   ||  |_|  ||       |  |       ||  | |  ||       ||    _ |  \n" +
+                "|    ___||  |_|  ||       ||    ___|  |   _   ||  |_|  ||    ___||   | ||  \n" +
+                "|   | __ |       ||       ||   |___   |  | |  ||       ||   |___ |   |_||_ \n" +
+                "|   ||  ||       ||       ||    ___|  |  |_|  ||       ||    ___||    __  |\n" +
+                "|   |_| ||   _   || ||_|| ||   |___   |       | |     | |   |___ |   |  | |\n" +
+                "|_______||__| |__||_|   |_||_______|  |_______|  |___|  |_______||___|  |_|\n";
+    }
+
     /**
      * Retourne une string avec ASCII art "Bouliste"
      * @return

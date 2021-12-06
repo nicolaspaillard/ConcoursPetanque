@@ -17,7 +17,7 @@ public class ConsoleUI {
      * Affiche le menu initial
      */
     public void start() {
-        while (!exit) {
+        while (!this.exit) {
             Printer.printStartMenu();
             handleStartMenuChoices();
             if (this.game != null) {
@@ -25,9 +25,10 @@ public class ConsoleUI {
                 Printer.printRunningGames();
                 this.results();
                 // reset global variables
-                // this.game = null;
+                this.game = null;
             }
-        }            
+        }      
+        Printer.printGameOver();    
     }
 
     /**
