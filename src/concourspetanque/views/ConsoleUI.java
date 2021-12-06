@@ -4,25 +4,28 @@ import concourspetanque.services.IGame;
 import concourspetanque.services.games.Championship;
 import concourspetanque.services.games.League;
 import concourspetanque.utils.Printer;
+import concourspetanque.views.menus.ChampionshipEndMenu;
+import concourspetanque.views.menus.IMenu;
+import concourspetanque.views.menus.LeagueEndMenu;
 
 public class ConsoleUI {
-    private boolean exitStartMenu = false;
-    private boolean exitEndMenu = false;
+    private boolean exit = false;
     private IGame game;
+    private IMenu endMenu;
 
     /**
-     * While loop pour le menu initial
+     * Affiche le menu initial
      */
     public void start() {
-        while (!exitStartMenu) {
+        while (!exit) {
             Printer.printStartMenu();
             handleStartMenuChoices();
             if (this.game != null) {
                 this.game.play();
+                Printer.printRunningGames();
                 this.results();
                 // reset global variables
-                this.game = null;
-                this.exitEndMenu = false;
+                // this.game = null;
             }
         }            
     }
@@ -33,50 +36,15 @@ public class ConsoleUI {
     private void handleStartMenuChoices() {
         switch (getUserInput()) {
             case 0:
-                this.exitStartMenu = true;
+                this.exit = true;
                 break;
             case 1:
                 this.game = new League();
+                this.endMenu = new LeagueEndMenu(this.game);
                 break;
             case 2:
                 this.game = new Championship();
-                break;
-            default:
-                System.out.println("Erreur : entrez un nombre valide.");
-        }
-    }
-
-    /**
-     * While loop pour le menu de fin de partie
-     */
-    public void results() {
-        while (!exitEndMenu) {
-            Printer.printEndMenu();
-            handleEndMenuChoices();
-        }
-    }
-
-    private void handleEndMenuChoices() {
-        switch (getUserInput()) {
-            case 0:
-                this.exitEndMenu = true;
-                break;
-            case 1:
-                Printer.printPlayers(this.game.getPlayersController().getPlayers());
-                break;
-            case 2:
-                Printer.printTeams(this.game.getTeamsController().getTeams());
-                break;
-            case 3:
-                int teamsCount = this.game.getTeamsController().getTeams().size();
-                Printer.printMatches(this.game.getMatchController().getMatchs(), teamsCount);
-                break;
-            case 4:
-                // Il faudra adater ce dernier choix et le wording pour la partie championnat
-                Printer.printLeagueResults(this.game.getTeamsController().getTeams());
-                break;
-            case 5:
-                Printer.printArbo(this.game.getMatchController().getMatchs());
+                this.endMenu = new ChampionshipEndMenu(this.game);
                 break;
             default:
                 System.out.println("Erreur : entrez un nombre valide.");
@@ -87,7 +55,7 @@ public class ConsoleUI {
      * Méthode pour gérer la saisie utilisateur
      * @return
      */
-    private int getUserInput() {
+    public static int getUserInput() {
         System.out.print("Votre choix : ");
         String userInput = System.console().readLine();
         try {
@@ -96,5 +64,12 @@ public class ConsoleUI {
         } catch (Exception e) {
             return -1;
         }       
+    }
+
+    /**
+     * Affiche le menu final
+     */
+    public void results() {
+        this.endMenu.showMenu();
     }
 }

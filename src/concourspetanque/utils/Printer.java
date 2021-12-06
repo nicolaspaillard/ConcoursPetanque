@@ -6,42 +6,29 @@ import concourspetanque.models.Player;
 import concourspetanque.models.Team;
 
 public class Printer {
-
-    public static void printArbo(List<Match> matches) {
-        int totalRounds = matches.get(matches.size() - 1).getRoundNumber();
-        for (int i = 0; i <= totalRounds ; i++) {
-            // matches.forEach(match -> match.getRoundNumber() == i?);
-            for(Match match : matches) {
-                if (match.getRoundNumber() == i) {
-                    System.out.print((match.getOpponent1().getId()+1) + "-" + (match.getOpponent2().getId()+1) + " | ");
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println(matches.get(matches.size() - 1).getWinner().getId() + 1);
-
-        // for (RoundScores roundScores : scoresController.getRoundsScores()) {
-        //     for (MatchScores matchScores : roundScores.getMatchesScores()) {
-        //         System.out.print((matchScores.getWinner().getId()+1)+" "+(matchScores.getLooser().getId()+1)+"\t");
-        //         if(roundScores.getMatchesScores().size()==1){
-        //             System.out.println();
-        //             System.out.println((matchScores.getWinner().getId()+1));
-        //         }
-        //     }
-        //     System.out.println();
-        // }
+    /**
+     * Affiche l'ASCII art de début de jeu
+     */
+    public static void printAsciiArt() {
+        System.out.println(asciiArt());
     }
 
+    /**
+     * Affiche le menu initial
+     */
     public static void printStartMenu() {
         Printer.printLine(40);
         System.out.println("\n\tMenu principal :");
-        System.out.println("1 - Simulation mode ligue");
-        System.out.println("2 - Simulation mode championat");
+        System.out.println("1 - Jouer en mode ligue");
+        System.out.println("2 - Jouer en mode championnat");
         System.out.println("0 - Quitter");
         Printer.printLine(40);
     }
 
-    public static void printEndMenu() {
+    /**
+     * Affiche le menu final en mode League
+     */
+    public static void printLeagueEndMenu() {
         Printer.printLine(40);
         System.out.println("\n\tMenu de fin de partie :");
         System.out.println("1 - Afficher la liste des joueurs");
@@ -52,6 +39,31 @@ public class Printer {
         Printer.printLine(40);
     }
 
+    /**
+     * Affiche le menu final en mode Championnat
+     */
+    public static void printChampionshipEndMenu() {
+        Printer.printLine(40);
+        System.out.println("\n\tMenu de fin de partie :");
+        System.out.println("1 - Afficher la liste des joueurs");
+        System.out.println("2 - Afficher la liste des équipes");
+        System.out.println("3 - Afficher le déroulé des matchs");
+        System.out.println("4 - Afficher arborescence finale");
+        System.out.println("0 - Terminer et revenir au menu principal");
+        Printer.printLine(40);
+    }
+    
+    /**
+     * Affiche l'ASCII art "Parties en cours"
+     */
+    public static void printRunningGames() {
+        System.out.println(asciiText());
+    }
+
+    /**
+     * Affiche les joueurs passées en paramètre
+     * @param players
+     */
     public static void printPlayers(List<Player> players) {
         // Titre
         printLine(40);
@@ -74,6 +86,10 @@ public class Printer {
         }
     }
 
+    /**
+     * Affiche les équipes passées en paramètre
+     * @param teams
+     */
     public static void printTeams(List<Team> teams) {
         // Titre
         printLine(40);
@@ -95,29 +111,39 @@ public class Printer {
         }
     }
 
+    /**
+     * Affiche les matchs passés en paramètre
+     * @param matchs
+     * @param teamsCount
+     */
     public static void printMatches(List<Match> matchs, int teamsCount) {
-        int matchsPerRound = teamsCount / 2;
         // Titre
         printLine(40);
         System.out.println("MATCHS");
+        // En-têtes du tableau
+        printLine(53);
+        System.out.printf("%-8s", "Round");
+        System.out.printf("%-35s", "Match");
+        System.out.printf("%-10s", "Gagnant");
+        printLine(53);
         // Lignes avec les données (Macths)
-        int round = 1;
         for(int i = 0 ; i < matchs.size() ; i++) {
-            if (i % matchsPerRound == 0) {
-                System.out.println("\nPARTIE " + round + "\n");
-                round++;
-            }
+            System.out.printf("%-8s", matchs.get(i).getRoundNumber());
             System.out.printf("%-8s", "Team" + (matchs.get(i).getOpponent1().getId() + 1));
             System.out.printf("%-3s", matchs.get(i).getOpponent1score());
             System.out.print(" - ");
             System.out.printf("%3s", matchs.get(i).getOpponent2score());
             System.out.printf("%8s", "Team" + (matchs.get(i).getOpponent2().getId() + 1));
             System.out.printf("%10s", "");
-            System.out.printf("%-25s", "Winner : Team" + (matchs.get(i).getWinner().getId() + 1) + " - round : " + matchs.get(i).getRoundNumber());
+            System.out.printf("%-10s", "Team " + (matchs.get(i).getWinner().getId() + 1));
             System.out.println("");
         }
     }
 
+    /**
+     * Affiche le tableau final de résultats en mode League
+     * @param teams
+     */
     public static void printLeagueResults(List<Team> teams) {
         // Titre
         printLine(40);
@@ -167,7 +193,34 @@ public class Printer {
     }
 
     /**
-     * Fonction utilitaire pour print une ligne de séparation avec un espace avant et après
+     * Affiche l'arborescence finale en mode championnat
+     * @param matches
+     */
+    public static void printArbo(List<Match> matches) {
+        // Titre
+        printLine(40);
+        System.out.println("\nARBORESCENCE FINALE\n");
+
+        int totalRounds = matches.get(matches.size() - 1).getRoundNumber();
+        
+        for (int i = 0; i <= totalRounds ; i++) {
+            for(Match match : matches) {
+                if (match.getRoundNumber() == i) {
+                    System.out.printf("%-6s", "| T" + (match.getOpponent1().getId()+1));
+                    System.out.printf("%2s", "vs");
+                    System.out.printf("%6s", "T" + (match.getOpponent2().getId()+1) + " |");
+                    System.out.printf("%3s", "");
+                    // System.out.print((match.getOpponent1().getId()+1) + "-" + (match.getOpponent2().getId()+1) + " | ");
+                }
+            }
+            System.out.println("\n");
+        }
+        System.out.println("| T" + (matches.get(matches.size() - 1).getWinner().getId() + 1) + " |  Winner !!");
+    }
+
+
+    /**
+     * Fonction utilitaire pour print une ligne de séparation
      * @param size : taille de la ligne
      */
     public static void printLine(int size) {
@@ -177,14 +230,24 @@ public class Printer {
         }
         System.out.print("\n");
     }
-
-    // public static String printAsciiArt() throws IOException {
-    //     return new String(Files.readAllBytes(Paths.get("src/concourspetanque/resources/ascii.txt")));
-    // }
-    public static void printAsciiArt() {
-        System.out.println(asciiArt());
+    
+    /**
+     * Retourne une string avec ASCII art "Partie en cours"
+     * @return
+     */
+    private static final String asciiText() {
+        return  "\n    ,------.                  ,--.  ,--.                                                                            |   | \n" +
+                "    |  .--. ' ,--,--.,--.--.,-'  '-.`--' ,---.  ,---.      ,---. ,--,--,      ,---. ,---. ,--.,--.,--.--. ,---.     |  .' \n" +
+                "    |  '--' |' ,-.  ||  .--''-.  .-',--.| .-. :(  .-'     | .-. :|      \\    | .--'| .-. ||  ||  ||  .--'(  .-'     |  |  \n" +
+                "    |  | --' \\ '-'  ||  |     |  |  |  |\\   --..-'  `)    \\   --.|  ||  |    \\ `--.' '-' ''  ''  '|  |   .-'  `)    `--'  \n" +
+                "    `--'      `--`--'`--'     `--'  `--' `----'`----'      `----'`--''--'     `---' `---'  `----' `--'   `----'     .--.  \n" +
+                "                                                                                                                    '--'  \n";
     }
-
+    
+    /**
+     * Retourne une string avec ASCII art "Bouliste"
+     * @return
+     */
     private static final String asciiArt() {
         return "                                                (@@@@@@@@@%,                                        \n" +
                 "                                                   @@@@@@@@@@@%.                                    \n" +
