@@ -6,6 +6,7 @@ public class RandomGenerators {
     private static Random rand = new Random();
     
     /** 
+     * Génère des noms aléatoires
      * @return String
      */
     public static String generateName() {
@@ -24,6 +25,7 @@ public class RandomGenerators {
     }
 
     /** 
+     * Génère un nombre aléatoire entre les deux paramètre passés.
      * @param min
      * @param max
      * @return int

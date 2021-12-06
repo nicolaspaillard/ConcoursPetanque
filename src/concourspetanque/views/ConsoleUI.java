@@ -32,7 +32,7 @@ public class ConsoleUI {
     }
 
     /**
-     * Gestion des choix du menu initial
+     * Gestion les choix utilisateur du menu initial
      */
     private void handleStartMenuChoices() {
         switch (getUserInput()) {

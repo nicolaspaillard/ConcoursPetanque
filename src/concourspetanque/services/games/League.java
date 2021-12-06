@@ -18,12 +18,19 @@ public class League extends AbstractGame {
         this.allowedNumberOfTeams = new ArrayList<>(Arrays.asList(6, 8, 10, 12));
     }
 
-
+    /**
+     * Génère un nombre de joueurs aléatoires entre 12 et 36
+     */
     @Override
     public void generatePlayers() {
         this.playersController.generatePlayers(minPlayers, maxPlayers);
     }
     
+    /**
+     * Lance la procédure pour jouer un championnat. Les rencontres se déroulent selon les tableaux codés en dur.
+     * L'implémentation à jouer dépend du nombre d'équipes. 
+     * Les 4 rounds sont joués et les équipes sont ensuite mises à jour pour faciliter l'affichage final.
+     */
     @Override
     public void startCompetition() {
         int teamsCount = this.teamsController.getTeams().size();
@@ -32,6 +39,9 @@ public class League extends AbstractGame {
         updateTeams();
     }
 
+    /**
+     * Joue les 4 rounds
+     */
     private void play4Rounds() {
         // Jouer les 4 rounds
         for (int i = 0 ; i < 4 ; i++) {
@@ -39,6 +49,10 @@ public class League extends AbstractGame {
         }
     }
 
+    /**
+     * Récupère les opposants du round. Cette méthode est surchargée pour récupérer les bons numéros 
+     * dans les tableaux de rencontres.
+     */
     @Override
     protected int[] getOpponents(Round round, int matchNumber) {
         int[] opponentsIds = {0,0};

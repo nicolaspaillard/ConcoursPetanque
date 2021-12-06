@@ -18,12 +18,18 @@ public class TeamsController {
     }
 
     /** 
+     * Renvoie la liste des Teams
      * @return List<Team> : Returns the list of all teams in that instance
      */
     public List<Team> getTeams() {
         return this.teams;
     }
 
+    /**
+     * Renvoie une team à partir de son ID
+     * @param teamID
+     * @return
+     */
     public Team getTeam(int teamID) {
         return this.teams.get(teamID);
     }
@@ -155,6 +161,9 @@ public class TeamsController {
         }
     }
 
+    /**
+     * Calcule la position finale des équipes selon 1) le nombre de victoire, puis 2) le goal average
+     */
     public void updateTeamsRanking() {
         List<Team> finalTeamsSorted = new ArrayList<>();
         // Boucle sur le score des équipes de 4 à 0
@@ -165,6 +174,11 @@ public class TeamsController {
         setTeamsRank(finalTeamsSorted);
     }
 
+    /**
+     * Renvoie les équipes ayant eu x victoires
+     * @param i nombre de victoires
+     * @return
+     */
     private List<Team> teamVictoriesMatch(int i) {
         List<Team> teamsByVictories = new ArrayList<>();
         for (Team team : this.teams) {
@@ -176,6 +190,10 @@ public class TeamsController {
         return teamsByVictories;
     }
 
+    /**
+     * Met à jour le ranking des équipes
+     * @param teams
+     */
     private void setTeamsRank(List<Team> teams) {
         for (int i = 0 ; i < teams.size() ; i++) {
             teams.get(i).setRanking(i);

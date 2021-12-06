@@ -14,10 +14,22 @@ public class MatchController {
         this.matchs = new ArrayList<Match>();
     }
 
+    /**
+     * Renvoie la liste des matchs
+     * @return
+     */
     public List<Match> getMatchs() {
         return matchs;
     }
 
+    /**
+     * Joue un match et ajoute le match à la liste des matchs
+     * 
+     * @param team1
+     * @param team2
+     * @param roundNumber
+     * @return le dernier match joué
+     */
     public Match playMatch(Team team1, Team team2, int roundNumber) {
         // Compute random opponents scores
         int opponent1score = RandomGenerators.generateNumberBetween(0, 14);

@@ -10,7 +10,8 @@ public class ConcoursPetanque {
     public static void main(String[] args) {
         // ASCII DRAW
         Printer.printAsciiArt();
-
+        
+        // Start command line interface
         ConsoleUI UI = new ConsoleUI();
         UI.start();
     }

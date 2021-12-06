@@ -18,14 +18,19 @@ public abstract class AbstractMenu {
         this.game = game;
     }
 
+    /**
+     * Affiche le menu final
+     */
     public void showMenu() {
         while (!exit) {
             printMenu();
             handleUserChoice();
         }
-        
     }
 
+    /**
+     * Gère les choix utilisateur
+     */
     public void handleUserChoice() {
         switch (getUserInput()) {
             case 0:

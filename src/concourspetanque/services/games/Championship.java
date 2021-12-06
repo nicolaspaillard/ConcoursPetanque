@@ -15,6 +15,10 @@ public class Championship extends AbstractGame {
         this.allowedNumberOfTeams = new ArrayList<>(Arrays.asList(4, 8, 16));
     }
 
+    /**
+     * Pour chaque cas de figure (4, 8 ou 16 équipes), déterminé de manière aléatoire,
+     * génère des joueurs dans un intervale permettant de faire des doublettes ou des triplettes.
+     */
     @Override
     public void generatePlayers() {
         switch (RandomGenerators.generateNumberBetween(0, 3)) {
@@ -30,6 +34,10 @@ public class Championship extends AbstractGame {
         }
     }
 
+    /**
+     * Lance la procédure pour jouer un championnat. Tant qu'il reste des équipes, organise des rencontres.
+     * Seuls le gagnants sont renvoyés par playRound. Le round suivant peut ensuite avoir lieu avec les équipes restantes
+     */
     @Override
     public void startCompetition() {
         List<Team> teamsRemaining = new ArrayList<Team>(this.teamsController.getTeams());
@@ -41,6 +49,13 @@ public class Championship extends AbstractGame {
         }
     }
 
+    /**
+     * Construit un round avec les équipes pasées en paramètre. Passe également le numéro de Round pour faciliter
+     * l'affichage final des résultats.
+     * @param roundTeams
+     * @param roundNumber
+     * @return
+     */
     private Round buildRound(List<Team> roundTeams, int roundNumber) {
         List<int[]> matches = new ArrayList<int[]>();
         // Loops while there are teams in the roundTeams list 
